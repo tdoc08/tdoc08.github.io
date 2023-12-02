@@ -25,18 +25,21 @@ body {
 }
 
 .section1 {
-    background-image: linear-gradient(90deg, rgba(69, 63, 59, 0.5) 1%, rgba(0, 0, 0, 0.6) 64%), url(./evermore_photos/weld_image\ .jpg);
+    background-image: linear-gradient(90deg, rgba(44, 41, 38, 0.822) 1%, rgba(0, 0, 0, 0.774) 75%), url(./evermore_photos/weld_image\ .jpg);
     color: white; 
-    height: 40em;
+    height: 32em;
     width: 100%;
     font-family: 'Montserrat', sans-serif; 
     text-align: center;
+    margin-top: 100px; 
+
 }
 
 .section1 h1 {
     font-weight: 500;
     font-size: 4em;
     padding-bottom: 15px;
+    padding-top: 10px;
     font-family: 'Cookie', sans-serif; 
 }
 
@@ -48,12 +51,16 @@ body {
 
 
 .btn {
-    background-color: #EAC27C;
-    width: 11em;
-    height: 2.5em;
-    color: white;
-    font-weight: 1000;
-    text-align: center;
+    background: rgb(201,175,119);
+    height: 4em;
+    width: 12em;
+    border-radius: 100px;
+}
+.btn-text {
+  font-size: 23px; 
+  font-weight: 700;
+  padding-top: 10px;
+  color: white;
 }
 .btn:hover {
     color: #EAC27C;
@@ -67,6 +74,17 @@ body {
 }
 .center {
     text-align: center;
+}
+
+/* Best Seller */
+.best-seller{
+  text-align: center;
+  margin-top: 15px;
+}
+
+.best-seller-text {
+  font-size: 15px;
+  font-weight: bold;
 }
 
 
@@ -131,104 +149,41 @@ body {
   /* Services */
   .services {
     padding-bottom: 40px;
-    background-color: #F7F1EC;
-    background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d7d7d7' fill-opacity='0.65' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
     border-top: 2px solid #EAC27C;
     border-bottom: 2px solid #EAC27C;
+    margin-top: 300px; 
   }
-  .services h2 {
-    font-size: 2rem; 
-  }
-  .services-title {
-    padding-top: 10px; 
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  .service-card {
-    margin-left: 20px;
-    margin-right: 20px;
-    text-align: center;
-  }
-  .card-title {
-    font-size: 2rem;
-    color: white;
-    font-family: Cookie, sans-serif;
-    font-weight: 400;
-  }
-  .card-text {
-    font-size: 0.7rem;
-    color: white;
-  }
-  .card {
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  }
-  .bracelet-card {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(./evermore_photos/bracelet_single.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-  .necklace-text { 
-    color: black;
-  }
-  .necklace-card {
-    border: 2px solid #EAC27C;
-  }
-  .anklet-card {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(./evermore_photos/anklet.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
+  
   
 /* Book Section */
 .book-section {
+    display: block;
     background-color: #161516f8;
     color: #ffffffb9;
     padding-top: 10px;
     padding-bottom: 10px;
     border-bottom: 2px solid #EAC27C;
+    margin-top: 60px;
+    align-items: center;
+    justify-content: space-evenly;
   }
-  .btn-white {
+  .btn-small {
     color: #ffffffc9;
     background-color: #161516c4;
     border-color: #EAC27C;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    height: 3em;
+    width: 10em;
+    border-radius: 100px;
   }
 .book h3 {
     font-size: 1rem;
 }
-@media only screen and (min-width: 1000px) {
-  .services {
-    padding-bottom: 90px;
-  }
-  .service-card {
-    margin-left: 20px;
-    margin-right: 20px;
-    height: 21rem; 
-  }
-  .services-title {
-    padding-top: 50px; 
-    margin-bottom: 50px;
-    text-align: center;
-  }
-  .book h3 {
-    font-size: 1.5rem;
-}
-.btn-white {
-  margin-top: 10px;
-  margin-right: 20px;
-}
-.card-title {
-  font-size: 2.8rem;
-}
-.card-text {
-  font-size: 1rem;
-}
-}
+
 /* FAQ */
 .faq {
   padding-bottom: 50px;
+  margin-top: 40px;
 }
 .faq-section {
   margin-top: 30px;
@@ -287,4 +242,20 @@ body {
   vertical-align: middle;
   font-size: 18px;
   font-weight: bold;
+}
+
+/* Price List */
+.price-list-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin-top: 40px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .price-list-img {
+    width: 90%;
+  }
 }

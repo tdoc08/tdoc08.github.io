@@ -27,7 +27,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-md navbar-light border-bottom border-dark fixed-top">
         <div class="container">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="#home">
             <img src="./evermore_photos/main_logo_light .jpg" alt="Logo">
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,11 +35,20 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="#home">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#faq">FAQ</a>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Locations
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="permanent-jewelry-gulf-shores.html">Gulf Shores</a></li>
+                  <li><a class="dropdown-item" href="permanent-jewelry-orange-beach.html">Orange Beach</a></li>
+                  <li><a class="dropdown-item" href="permanent-jewelry-pensacola.html">Pensacola</a></li>
+                  <li><a class="dropdown-item" href="#">Destin</a></li>
+                  <li><a class="dropdown-item" href="#">Fort Walton Beach</a></li>
+                  <li><a class="dropdown-item" href="#">Santa Rosa</a></li>
+                  <li><a class="dropdown-item" href="#">Fairhope</a></li>
+                  <li><a class="dropdown-item" href="#">Gulf Breeze</a></li>
+                </ul>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#services">Pricing</a>
@@ -49,6 +58,9 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="tel:6305967306">Call Us</a>
+              </li>             
+               <li class="nav-item">
+                <a class="nav-link" href="#faq">FAQ</a>
               </li>
             </ul>
           </div>
@@ -61,12 +73,18 @@
       <div class="col-12">
         <h1>Permanent Jewelry</h1>
         <h4>Book a Pop-Up or Private Party for your Special Occasion!</h4>
-        <h4>We come to you: Servicing Gulf Shores, Orange Beach, Pensacola, Destin, Santa Rosa and more</h4>
-        <a href="https://laurendoctor.glossgenius.com/" class="btn">Book Online</a>
+        <h4>Permanent bracelets, anklets, necklaces and more!</h4>
+        <a href="https://laurendoctor.glossgenius.com/services" target="_blank" class="btn"><h3 class="btn-text">Book Online</h3></a>
       </div>
     </div>
   </div>
 </div>
+
+<section>
+  <div class="best-seller">
+    <h3 class="best-seller-text">🔥Best Seller: Permanent Bracelet - Gold - $85 🔥</h3>
+  </div>
+</section>
 
 
       <!-- About  -->
@@ -82,54 +100,23 @@
           </div>
         </section>
       </div>
+      <!-- Price List -->
+      <section>
+        <div class="pricing" id="services">
+          <div>
+          <img class="price-list-img" src="./evermore_photos/price_list.jpg" alt="">
+          </div>
+        </div>
+      </section>
       <!-- Services -->
-      <div class="container-fluid services" id="services">
-        <div class="row services-title">
-          <div class="col">
-            <h2>Pricing</h2>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
-            <div class="card service-card bracelet-card">
-              <div class="card-body">
-                <h4 class="card-title">Bracelets</h4>
-                <h4 class="card-title">$85</h4>
-                <p class="card-text">Elevate your style with our exquisite collection of bracelets. From delicate silver bangles to intricate gold charm bracelets, find the perfect accessory to add elegance and sophistication to any outfit.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card service-card necklace-card">
-              <div class="card-body">
-                <h4 class="card-title necklace-text">Necklaces</h4>
-                <h4 class="card-title necklace-text">$175</h4>
-                <p class="card-text necklace-text">Enhance your neckline with our captivating necklaces. From elegant pearl strands to statement pendants, our collection offers a variety of options crafted with precious metals and sparkling gemstones.</p>
-              </div>
-            </div>
-            </div>
-          <div class="col-md-4">
-            <div class="card service-card anklet-card">
-              <div class="card-body">
-                <h4 class="card-title">Anklets</h4>
-                <h4 class="card-title">$100</h4>
-                <p class="card-text">Explore our stunning anklets, crafted with attention to detail. From dainty chains with gemstone accents to bohemian-inspired designs, these accessories add charm and style to your look.</p>
-              </div>
-            </div>
-          </div>
-          </div>
-        </div>
-      </div>
+
       <!-- Booking -->
       <section class="book-section">
-        <div class="container">
+        <div class="container center">
           <div class="row">
-            <div class="col-md-6 book">
-              <h3>Would you like to speak with us or book online today?</h3>
-            </div>
-            <div class="col-md-6 text-center">
-              <a href="tel:3317251100"><button class="btn btn-white">Call Now</button></a>
-              <a href="https://laurendoctor.glossgenius.com/" target=”_blank” ><button class="btn btn-white">Book Online</button></a>
+            <div class="col text-center">
+              <a href="tel:3317251100"><button class="btn-small">Call Now</button></a>
+              <a href="https://laurendoctor.glossgenius.com/" target=”_blank” ><button class="btn-small">Book Online</button></a>
             </div>
           </div>
         </div>
@@ -218,6 +205,8 @@
       </div>
     </div>
     </section>
+
+
 
     <!-- Footer -->
     <footer class="footer-section">
