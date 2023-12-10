@@ -259,3 +259,28 @@ body {
     width: 90%;
   }
 }
+/* Best Seller Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+
+
+.best-seller-table {
+  padding-bottom: 50px;
+  text-align: center;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.thread-background{
+  background-color: #F7F1EC;
+}
