@@ -49,7 +49,6 @@ body {
     font-size: 1.2em; 
 }
 
-
 .btn {
     background: rgb(201,175,119);
     height: 4em;
@@ -87,7 +86,6 @@ body {
   font-weight: bold;
 }
 
-
    /* About */
   .about h3 {
     font-size: 2rem;
@@ -97,7 +95,6 @@ body {
   .about p {
     font-size: 0.7rem;
   }
-  
   
   @media only screen and (max-width: 500px) {
     .carousel-item img {
@@ -143,9 +140,6 @@ body {
     padding-bottom: 2rem;
   }
   }
-
- 
-  
   /* Services */
   .services {
     padding-bottom: 40px;
@@ -265,22 +259,17 @@ table {
   border-collapse: collapse;
   margin-top: 20px;
 }
-
 th, td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
 }
-
-
-
 .best-seller-table {
   padding-bottom: 50px;
   text-align: center;
   padding-left: 5%;
   padding-right: 5%;
 }
-
 .thread-background{
   background-color: #F7F1EC;
 }
