@@ -73,20 +73,8 @@ body {
 }
 .center {
     text-align: center;
-}
-
-/* Best Seller */
-.best-seller{
-  text-align: center;
-  margin-top: 15px;
-}
-
-.best-seller-text {
-  font-size: 15px;
-  font-weight: bold;
-}
-
-   /* About */
+} 
+/* About */
   .about h3 {
     font-size: 2rem;
     margin-top: 20px;
@@ -272,4 +260,10 @@ th, td {
 }
 .thread-background{
   background-color: #F7F1EC;
+}
+/* Service Areas */
+.service_areas {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px; 
 }
