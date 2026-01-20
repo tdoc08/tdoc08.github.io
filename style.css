@@ -37,13 +37,38 @@ body {
 
 .section1 h1 {
     font-weight: 500;
-    font-size: 4em;
+    font-size: 3em;
     padding-bottom: 15px;
     padding-top: 10px;
     font-family: 'Cookie', sans-serif; 
 }
 
 .section1 h4 {
+    padding-bottom: 30px;  
+    font-family: 'Montserrat', sans-serif; 
+    font-size: 1.2em; 
+}
+
+.section2 {
+    background-image: linear-gradient(90deg, rgba(44, 41, 38, 0.822) 1%, rgba(0, 0, 0, 0.774) 75%), url(./evermore_photos/ear_piercing_studio.JPG);
+    color: white; 
+    height: 32em;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif; 
+    text-align: center;
+    margin-top: 100px; 
+
+}
+
+.section2 h1 {
+    font-weight: 500;
+    font-size: 3em;
+    padding-bottom: 15px;
+    padding-top: 10px;
+    font-family: 'Cookie', sans-serif; 
+}
+
+.section2 h4 {
     padding-bottom: 30px;  
     font-family: 'Montserrat', sans-serif; 
     font-size: 1.2em; 
