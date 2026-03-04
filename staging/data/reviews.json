@@ -1,0 +1,47 @@
+{
+  "business": {
+    "name": "Evermore Permanent Jewelry",
+    "rating": 5.0,
+    "review_count": 22,
+    "platform": "Google"
+  },
+  "reviews": [
+    {
+      "author": "Sarah M.",
+      "rating": 5,
+      "date": "2024-12-15",
+      "text": "Absolutely loved my experience at Evermore! The bracelet is stunning and Lauren made the whole process so special. I can't stop staring at my wrist!"
+    },
+    {
+      "author": "Jessica T.",
+      "rating": 5,
+      "date": "2024-11-28",
+      "text": "Best gift I've ever given myself. The permanent bracelet is delicate and perfect. It's survived the beach, pool, and shower without any issues. Highly recommend!"
+    },
+    {
+      "author": "Amanda K.",
+      "rating": 5,
+      "date": "2024-11-10",
+      "text": "We brought our whole group for a bachelorette party — such a unique and memorable experience. Everyone left with beautiful jewelry and huge smiles. Will definitely be back!"
+    },
+    {
+      "author": "Rachel B.",
+      "rating": 5,
+      "date": "2024-10-22",
+      "text": "Lauren is so talented and professional. The studio is gorgeous and the whole process is completely painless. I'll be back for an anklet next!"
+    },
+    {
+      "author": "Melissa C.",
+      "rating": 5,
+      "date": "2024-10-05",
+      "text": "Came in for an ear piercing and it was the best experience I've ever had. Clean, professional, and the result is perfect. The studio is absolutely beautiful too!"
+    },
+    {
+      "author": "Katie W.",
+      "rating": 5,
+      "date": "2024-09-18",
+      "text": "I was a little nervous but the whole team made me feel so comfortable. My permanent necklace is absolutely gorgeous. Worth every single penny!"
+    }
+  ],
+  "_instructions": "To update reviews: copy real 5-star review text from Google Maps into this file. Keep the same JSON structure. The reviews carousel on the homepage pulls from this file via JavaScript."
+}

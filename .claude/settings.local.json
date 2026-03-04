@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(echo \"=== Files with inline <style> blocks ===\")",
+      "Bash(for file in /c/Users/timdo/Documents/tdoc08.github.io/staging/*.html /c/Users/timdo/Documents/tdoc08.github.io/staging/blog/*.html)",
+      "Bash(do)",
+      "Bash(if grep -q \"<style>\" \"$file\")",
+      "Bash(then)",
+      "Bash(fi)",
+      "Bash(done)",
+      "Bash(py --version)",
+      "Bash(py -c \"print\\(''hello''\\)\")"
+    ]
+  }
+}
