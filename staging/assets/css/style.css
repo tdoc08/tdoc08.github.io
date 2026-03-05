@@ -3050,7 +3050,7 @@ p:last-child { margin-bottom: 0; }
     top: 0;
     left: 0;
     right: 0;
-    animation: headerSlideDown 0.7s cubic-bezier(0.12, 1, 0.2, 1) 5.0s both;
+    animation: headerSlideDown 0.7s cubic-bezier(0.12, 1, 0.2, 1) 0.4s both;
   }
   /* Hero: skip long-delay content animations on mobile — content appears immediately.
      The 3.8–4.9s sequence is great on desktop but kills mobile UX.
@@ -3775,7 +3775,7 @@ p:last-child { margin-bottom: 0; }
    (see @media (max-width: 768px) .page-home .site-header block above) */
 @media (min-width: 769px) {
   .page-home .site-header {
-    animation: headerSlideDown 1.3s cubic-bezier(0.12, 1, 0.2, 1) 3.8s both;
+    animation: headerSlideDown 1.3s cubic-bezier(0.12, 1, 0.2, 1) 2.6s both;
   }
 }
 @keyframes headerSlideDown {
@@ -3810,8 +3810,8 @@ p:last-child { margin-bottom: 0; }
       transparent 70%);
   opacity: 0;
   animation:
-    heroGlowIn    1.8s cubic-bezier(0.25, 0.1, 0.25, 1) 3.9s both,
-    heroGlowPulse 5.0s ease-in-out                       5.7s infinite;
+    heroGlowIn    1.8s cubic-bezier(0.25, 0.1, 0.25, 1) 3.1s both,
+    heroGlowPulse 5.0s ease-in-out                       4.4s infinite;
   pointer-events: none;
 }
 @keyframes heroGlowIn {
@@ -3840,23 +3840,23 @@ p:last-child { margin-bottom: 0; }
   text-shadow:
     0 2px 28px rgba(0, 0, 0, 0.98),
     0 0  65px rgba(0, 0, 0, 0.65);
-  animation: heroFadeUp 2.0s cubic-bezier(0.12, 1, 0.2, 1) 3.8s both;
+  animation: heroFadeUp 2.0s cubic-bezier(0.12, 1, 0.2, 1) 3.0s both;
 }
 /* 2. Eyebrow location text */
 .page-home .hero .hero-content .eyebrow {
-  animation: heroFadeUp 1.8s cubic-bezier(0.12, 1, 0.2, 1) 4.15s both;
+  animation: heroFadeUp 1.8s cubic-bezier(0.12, 1, 0.2, 1) 3.25s both;
 }
 /* 3. Body copy */
 .page-home .hero .hero-content > p {
   margin-left: auto;
   margin-right: auto;
   text-shadow: 0 1px 14px rgba(0, 0, 0, 0.94);
-  animation: heroFadeUp 1.8s cubic-bezier(0.12, 1, 0.2, 1) 4.45s both;
+  animation: heroFadeUp 1.8s cubic-bezier(0.12, 1, 0.2, 1) 3.45s both;
 }
 /* 4. CTA buttons — last */
 .page-home .hero .hero-btns {
   justify-content: center;
-  animation: heroFadeUp 1.6s cubic-bezier(0.12, 1, 0.2, 1) 4.7s both;
+  animation: heroFadeUp 1.6s cubic-bezier(0.12, 1, 0.2, 1) 3.6s both;
 }
 .page-home .hero .hero-btns .btn {
   min-width: 200px;
@@ -3879,12 +3879,12 @@ p:last-child { margin-bottom: 0; }
 }
 .page-home .hero-badge {
   animation:
-    heroFadeUp 1.2s cubic-bezier(0.12, 1, 0.2, 1) 4.5s both,
-    badgePulse 3s ease-in-out 5.8s infinite;
+    heroFadeUp 1.2s cubic-bezier(0.12, 1, 0.2, 1) 3.5s both,
+    badgePulse 3s ease-in-out 4.5s infinite;
 }
 /* Opacity-only — preserves base translateX(-50%) on hero-scroll */
 .page-home .hero-scroll {
-  animation: heroFadeIn 1.4s ease-out 4.9s both;
+  animation: heroFadeIn 1.4s ease-out 3.9s both;
 }
 
 @keyframes heroFadeUp {
@@ -3910,8 +3910,8 @@ p:last-child { margin-bottom: 0; }
   overflow: hidden;
   /* Act 3 + Act 4: collective brightness peak then blur-dissolve */
   animation:
-    hwWordGlow     0.9s ease-in-out                       3.3s both,
-    hwWordmarkExit 1.2s cubic-bezier(0.55, 0, 0.85, 0.5) 4.1s both;
+    hwWordGlow     0.9s ease-in-out                       2.2s both,
+    hwWordmarkExit 0.8s cubic-bezier(0.55, 0, 0.85, 0.5) 2.9s both;
 }
 
 /* Act 3: whole-word blazes together before the exit */
@@ -3947,7 +3947,7 @@ p:last-child { margin-bottom: 0; }
   text-shadow: none;
   animation:
     hwReveal 0.85s cubic-bezier(0.4, 0, 0.2, 1) calc(var(--i) * 0.07s) both,
-    hwGlow   1.1s  cubic-bezier(0.4, 0, 0.2, 1) calc(var(--i) * 0.22s + 1.0s) both;
+    hwGlow   1.1s  cubic-bezier(0.4, 0, 0.2, 1) calc(var(--i) * 0.14s + 0.7s) both;
 }
 
 /* Act 1: clean, elegant rise-in entrance */
