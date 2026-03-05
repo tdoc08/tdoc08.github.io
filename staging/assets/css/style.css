@@ -642,7 +642,7 @@ p:last-child { margin-bottom: 0; }
 .hero.hero-inner .hero-content > p {
   text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9);
 }
-/* Mobile: prevent hero CTA buttons from wrapping to 2 lines */
+/* Mobile: hero-inner fixes for iPhone 12 (390px) */
 @media (max-width: 768px) {
   .hero.hero-inner .hero-btns {
     flex-wrap: nowrap;
@@ -655,6 +655,16 @@ p:last-child { margin-bottom: 0; }
     padding-right: 0.75rem;
     font-size: 0.78rem;
     white-space: nowrap;
+  }
+  /* Fix h1 line-height — 0.92 causes line overlap when heading wraps on small screens */
+  .hero.hero-inner .hero-content h1 {
+    font-size: clamp(1.8rem, 7vw, 2.5rem);
+    line-height: 1.12;
+  }
+  /* Tighter top padding on mobile so content isn't pushed too low below nav */
+  .hero.hero-inner {
+    padding-top: calc(var(--space-md) + var(--nav-height));
+    padding-bottom: calc(var(--space-md) + 2.5rem); /* extra clears stats bar */
   }
 }
 
@@ -2525,6 +2535,22 @@ p:last-child { margin-bottom: 0; }
     height: auto;
   }
 }
+/* Stats bar — anchor to bottom of location page hero (matches .hero.hero-inner pattern) */
+.page-dark-hero .hero .stats-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  background: rgba(13, 13, 13, 0.68);
+  border-top: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+/* Give location hero bottom clearance so content isn't obscured by stats bar */
+.page-dark-hero .hero {
+  padding-bottom: 3rem;
+}
 
 /* ── Homepage Dark Nav (page-home body class) ────────────────────── */
 .page-home .site-header {
@@ -3044,6 +3070,12 @@ p:last-child { margin-bottom: 0; }
   .hero { height: 74svh; min-height: 480px; }
   /* Push center point: padding-top below nav, padding-bottom lifts content above true center */
   .page-home .hero { padding-top: var(--nav-height); padding-bottom: 4rem; }
+  /* Location page hero (gulf-shores, west-palm-beach) — mobile padding + h1 readability */
+  .page-dark-hero .hero { padding-top: var(--nav-height); }
+  .page-dark-hero .hero .hero-content h1 {
+    font-size: clamp(2.4rem, 8vw, 3rem);
+    line-height: 1.1;
+  }
   /* Nav: slide in after EVERMORE animation fully exits (~5.3s) */
   .page-home .site-header {
     position: fixed;
