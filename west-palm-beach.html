@@ -989,7 +989,7 @@
   observer.observe(canvas);
 
   buildChains();
-  startRender();
+  setTimeout(startRender, 100); // defer 100ms so CSS animation first-frame paint completes first
 })();
   </script>
 
