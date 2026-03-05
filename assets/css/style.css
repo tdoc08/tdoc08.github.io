@@ -461,10 +461,8 @@ p:last-child { margin-bottom: 0; }
 .hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url('../../evermore_photos/weld_image%20.jpg');
-  background-size: cover;
-  background-position: center 40%;
-  opacity: 0.4;
+  background: #0D0D0D;
+  opacity: 1;
   transition: opacity 1.2s ease;
 }
 
@@ -534,11 +532,12 @@ p:last-child { margin-bottom: 0; }
 
 /* ---- 8b. Hero — Inner Page Variant ---- */
 .hero-inner {
-  padding: calc(var(--space-xl) + var(--nav-height)) 0 var(--space-xl);
+  padding: calc(var(--space-xl) + var(--nav-height) + 3.5rem) 0 calc(var(--space-xl) + 3.5rem);
   background: var(--dark);
   position: relative;
   overflow: hidden;
-  min-height: 44vh;
+  height: auto;        /* override fixed height from .hero — content must size the hero */
+  min-height: 51vh;    /* 44vh + 15% = 50.6vh → rounded to 51vh */
   display: flex;
   align-items: center;
 }
@@ -578,6 +577,17 @@ p:last-child { margin-bottom: 0; }
 }
 
 /* ---- 8c. Hero — SEO / Guide Pages (.hero.hero-inner) ---- */
+/* Compound selector (0,2,0,0) beats .hero + .hero-inner (both 0,1,0,0):
+   - height: auto   → content sizes the hero, no fixed-height clipping
+   - align-items: flex-start → content anchors to padding-top edge;
+     flex-start guarantees padding-bottom is always the gap to stats bar.
+     align-items: center would pull content upward when content > available space,
+     reducing the bottom gap and causing stats bar overlap. */
+.hero.hero-inner {
+  height: auto;
+  align-items: flex-start;
+  overflow: visible; /* allow stats bar at bottom: -1.5rem to extend below hero without clipping */
+}
 /* Full-height hero with photo background + dark gradient overlay  */
 .hero.hero-inner .hero-bg {
   opacity: 1;
@@ -613,10 +623,10 @@ p:last-child { margin-bottom: 0; }
   position: relative;
   z-index: 2;
 }
-/* Stats bar — anchored to bottom of hero, matching homepage behavior */
+/* Stats bar — sits 1.5rem below hero bottom edge */
 .hero.hero-inner .stats-bar {
   position: absolute;
-  bottom: 0;
+  bottom: -1.5rem;
   left: 0;
   right: 0;
   z-index: 2;
@@ -661,10 +671,10 @@ p:last-child { margin-bottom: 0; }
     font-size: clamp(1.8rem, 7vw, 2.5rem);
     line-height: 1.12;
   }
-  /* Tighter top padding on mobile so content isn't pushed too low below nav */
+  /* Enough top padding to clear page-dark-hero nav: 16px site-header + 12px nav-inner + 42px logo + 12px = 82px actual nav height; 136px gives 54px breathing room */
   .hero.hero-inner {
-    padding-top: calc(var(--space-md) + var(--nav-height));
-    padding-bottom: calc(var(--space-md) + 2.5rem); /* extra clears stats bar */
+    padding-top: calc(var(--space-xl) + var(--nav-height));
+    padding-bottom: calc(var(--space-md) + 4rem); /* stats bar ~40px; 96px gives 56px clearance */
   }
 }
 
@@ -2517,7 +2527,7 @@ p:last-child { margin-bottom: 0; }
 }
 /* Hero nav — extra top padding + 30% larger logo on SEO pages */
 .page-dark-hero .site-header {
-  padding-top: 2rem;
+  padding-top: 1rem;  /* raised 1rem — was 2rem */
   transition: padding 0.4s ease, background 0.4s ease;
 }
 /* Collapse padding when scrolled so the dark nav bg covers the full header area */
@@ -2526,13 +2536,13 @@ p:last-child { margin-bottom: 0; }
   background: rgba(13, 13, 13, 0.97);
 }
 .page-dark-hero .nav-logo img {
-  width: 275px;
-  height: auto;
+  height: 58px;  /* explicit height → predictable nav height regardless of image aspect ratio */
+  width: auto;
 }
 @media (max-width: 768px) {
   .page-dark-hero .nav-logo img {
-    width: 164px;
-    height: auto;
+    height: 42px;
+    width: auto;
   }
 }
 /* Stats bar — anchor to bottom of location page hero (matches .hero.hero-inner pattern) */
