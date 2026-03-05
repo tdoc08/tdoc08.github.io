@@ -5355,6 +5355,10 @@ p:last-child { margin-bottom: 0; }
 .section--noir .pricing-note { color: rgba(250,247,242,0.65); }
 .section--noir .pricing-note strong { color: var(--cream); }
 
+/* call-option on dark sections (private events booking section) */
+.section--noir .call-option { color: rgba(250,247,242,0.65); }
+.section--noir .call-option a { color: var(--gold-light); }
+
 /* general btn-outline-dark on dark sections */
 .section--noir .btn-outline-dark {
   border-color: rgba(201,168,76,0.5);
