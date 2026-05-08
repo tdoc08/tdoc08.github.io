@@ -145,7 +145,7 @@ The site uses a **Black, White & Gold** palette. Dark is the dominant background
 | Oversized watermark | "EVERMORE" at 7% opacity | Absolute position |
 | Brand logos bar | Partner or press mentions | Horizontal logo row |
 | Testimonials | Review cards | Large section heading |
-| "Design For Own" CTA | "Book Your Appointment" → GlossGenius | Single button CTA strip |
+| "Design For Own" CTA | "Book Your Appointment" → embedded Acuity widget | Single button CTA strip |
 | Footer newsletter bar | Location + hours footer | Mixed-weight heading |
 
 ### Design Verification Checks
@@ -234,9 +234,13 @@ Every page must include in `<head>`:
 - Never rely on color alone to convey information
 - All `<a>` tags must have descriptive text — never use "click here" or "read more" alone
 
-## Booking Links (do not change)
-- **Foley, AL**: `https://laurendoctor.glossgenius.com/services`
-- **West Palm Beach, FL**: `https://evermorepermanentjewelrywpb.glossgenius.com/services`
+## Booking (Acuity Scheduling — embedded widgets)
+- **Routing page**: `book.html` — links to both location-specific booking pages
+- **Foley, AL**: `book-gulf-shores.html` — standalone page with embedded Acuity widget (Gulf Shores calendar only)
+- **West Palm Beach, FL**: `book-west-palm-beach.html` — standalone page with embedded Acuity widget (WPB calendar only)
+- **Inline widgets**: `gulf-shores.html#book` and `west-palm-beach.html#book` — Book Now buttons smooth-scroll to widget on the same page
+- **Acuity placeholders in code** (find/replace once IDs are known): `ACUITY_SUBDOMAIN`, `ACUITY_GS_CAL_ID`, `ACUITY_WPB_CAL_ID`
+- **Server-side analytics** (planned): Acuity webhooks → GTM Server-Side container at `sgtm.evermore-permanentjewelry.com` → GA4 + Google Ads. See `.claude/plans/scalable-puzzling-ladybug.md`.
 
 ## Location Info
 **Foley, AL (Gulf Shores)**

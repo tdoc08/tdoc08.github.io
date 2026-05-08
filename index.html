@@ -98,6 +98,16 @@
     }
   ]
   </script>
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0D0D0D">
+
 </head>
 <body class="page-home page-has-sticky-bar">
 
@@ -124,7 +134,15 @@
             <li><a href="gallery.html">Gallery</a></li>
             <li><a href="blog/index.html">Blog</a></li>
             <li><a href="gift-cards.html">Gift Cards</a></li>
-            <li><a href="book.html" class="nav-cta btn">Book Now</a></li>
+            <li class="nav-cta-wrap">
+              <button type="button" class="nav-cta-dropdown-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="book-dropdown">
+                Book Now <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+              </button>
+              <ul class="nav-cta-dropdown" id="book-dropdown" role="menu">
+                <li role="none"><a href="book-gulf-shores.html#book" role="menuitem"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Gulf Shores, AL</a></li>
+                <li role="none"><a href="book-west-palm-beach.html#book" role="menuitem"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> West Palm Beach, FL</a></li>
+              </ul>
+            </li>
           </ul>
         </div>
       </div>
@@ -163,7 +181,7 @@
             <span class="eyebrow">Gulf Shores, AL &amp; West Palm Beach, FL</span>
             <p>In-store appointments &amp; private parties — walk-ins always welcome. Now at Tanger Outlets in Gulf Shores, AL and West Palm Beach, FL.</p>
             <div class="hero-btns">
-              <a href="book.html" class="btn btn-primary">Book Now</a>
+              <a href="book.html" class="btn btn-primary" data-book-cta>Book Now <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></a>
               <a href="tel:+16305967306" class="btn btn-outline"><i class="fa-solid fa-phone" aria-hidden="true"></i> Call Now</a>
             </div>
           </div>
@@ -315,7 +333,7 @@
 
         <div class="container">
           <div class="cta-row cta-row--center reveal" style="margin-top:0;">
-            <a href="https://laurendoctor.glossgenius.com/services" class="btn btn-primary" target="_blank" rel="noopener">Book Now</a>
+            <a href="book-gulf-shores.html" class="btn btn-primary" data-book-cta>Book Now <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></a>
             <a href="tel:+16305967306" class="btn btn-outline"><i class="fa-solid fa-phone" aria-hidden="true"></i> Call Now</a>
             <a href="services.html" class="btn btn-gold-outline pricing-cta-secondary">Other Services</a>
             <a href="gift-cards.html" class="btn btn-outline pricing-cta-secondary"><i class="fa-solid fa-gift" aria-hidden="true"></i> Gift Cards</a>
@@ -361,7 +379,7 @@
             <p>We weld each piece directly onto you, creating a seamless, clasp-free fit that becomes part of your everyday life. No latch to fuss with. No fear of losing it. Just beautiful jewelry that goes wherever you go.</p>
             <p>Whether you're celebrating a milestone, treating yourself, or giving someone a memory they'll wear forever, we make the experience as unforgettable as the jewelry itself.</p>
             <div class="cta-row" style="margin-top:var(--space-32);">
-              <a href="book.html" class="btn btn-primary">Book an Appointment</a>
+              <a href="book.html" class="btn btn-primary" data-book-cta>Book an Appointment <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></a>
               <a href="gift-cards.html" class="btn btn-outline-dark"><i class="fa-solid fa-gift" aria-hidden="true"></i> Gift Cards</a>
             </div>
           </div>
@@ -401,7 +419,7 @@
               <p>Clasp-free bracelets, anklets, necklaces, hand chains, and rings welded directly onto you. Available in 14k gold filled, sterling silver, and solid gold.</p>
               <div class="btn-group">
                 <a href="services.html#permanent-jewelry" class="btn btn-outline" aria-label="Learn more about Permanent Jewelry">Learn More</a>
-                <a href="https://laurendoctor.glossgenius.com/services" class="btn btn-primary" target="_blank" rel="noopener">Book Now</a>
+                <a href="book-gulf-shores.html" class="btn btn-primary" data-book-cta>Book Now <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></a>
               </div>
             </div>
           </article>
@@ -416,7 +434,7 @@
               <p>Boutique ear piercings using a hand-pressured, no-gun system with sterile single-use cartridges. Aftercare solution included. Perfect for all ages.</p>
               <div class="btn-group">
                 <a href="services.html#ear-piercings" class="btn btn-outline" aria-label="Learn more about Ear Piercings">Learn More</a>
-                <a href="https://laurendoctor.glossgenius.com/services" class="btn btn-primary" target="_blank" rel="noopener">Book Now</a>
+                <a href="book-gulf-shores.html" class="btn btn-primary" data-book-cta>Book Now <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></a>
               </div>
             </div>
           </article>
@@ -431,7 +449,7 @@
               <p>Pick your oyster, crack it open, and discover your pearl — then turn it into a necklace on the spot. A truly unique, memorable keepsake experience.</p>
               <div class="btn-group">
                 <a href="services.html#oyster-shucking" class="btn btn-outline" aria-label="Learn more about Oyster Shucking">Learn More</a>
-                <a href="https://laurendoctor.glossgenius.com/services" class="btn btn-primary" target="_blank" rel="noopener">Book Now</a>
+                <a href="book-gulf-shores.html" class="btn btn-primary" data-book-cta>Book Now <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></a>
               </div>
             </div>
           </article>
@@ -465,7 +483,7 @@
 
         <div class="cta-row cta-row--center reveal" style="margin-top:var(--space-48);">
           <a href="services.html" class="btn btn-gold-outline">View All Services</a>
-          <a href="book.html" class="btn btn-primary">Book Now</a>
+          <a href="book.html" class="btn btn-primary" data-book-cta>Book Now <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></a>
           <a href="tel:+16305967306" class="btn btn-outline"><i class="fa-solid fa-phone" aria-hidden="true"></i> Call Now</a>
         </div>
 
@@ -525,7 +543,7 @@
       </div>
       <div class="cta-row cta-row--center reveal" style="padding:var(--space-48) var(--space-32) 0;">
         <a href="gallery.html" class="btn btn-gold-outline">View Full Gallery</a>
-        <a href="book.html" class="btn btn-primary">Book Now</a>
+        <a href="book.html" class="btn btn-primary" data-book-cta>Book Now <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></a>
       </div>
     </section>
 
@@ -566,7 +584,7 @@
                 <li><span class="location-service-tag">Oyster Shucking</span></li>
               </ul>
               <div class="btn-group">
-                <a href="https://laurendoctor.glossgenius.com/services" class="btn btn-primary" target="_blank" rel="noopener">Book Gulf Shores</a>
+                <a href="book-gulf-shores.html" class="btn btn-primary">Book Gulf Shores</a>
                 <a href="tel:+16305967306" class="btn btn-outline"><i class="fa-solid fa-phone" aria-hidden="true"></i> Call Now</a>
               </div>
             </div>
@@ -586,7 +604,7 @@
                 <li><span class="location-service-tag">Permanent Jewelry</span></li>
               </ul>
               <div class="btn-group">
-                <a href="https://evermorepermanentjewelrywpb.glossgenius.com/services" class="btn btn-primary" target="_blank" rel="noopener">Book West Palm Beach</a>
+                <a href="book-west-palm-beach.html" class="btn btn-primary">Book West Palm Beach</a>
                 <a href="tel:+16305967306" class="btn btn-outline"><i class="fa-solid fa-phone" aria-hidden="true"></i> Call Now</a>
               </div>
             </div>
@@ -754,8 +772,8 @@
         </h2>
         <p class="reveal" style="color:rgba(250,247,242,0.6);max-width:48ch;margin:0 auto var(--space-12);">Walk-ins welcome — we fill up fast. No deposit required.</p>
         <div class="cta-row cta-row--center reveal reveal-delay-2">
-          <a href="https://laurendoctor.glossgenius.com/services" class="btn btn-primary" target="_blank" rel="noopener">Book Now</a>
-          <a href="https://evermorepermanentjewelrywpb.glossgenius.com/services" class="btn btn-outline cta-desktop-only" target="_blank" rel="noopener">Book West Palm Beach</a>
+          <a href="book-gulf-shores.html" class="btn btn-primary" data-book-cta>Book Now <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></a>
+          <a href="book-west-palm-beach.html" class="btn btn-outline cta-desktop-only">Book West Palm Beach</a>
           <a href="tel:+16305967306" class="btn btn-gold-outline"><i class="fa-solid fa-phone" aria-hidden="true"></i> Call Now</a>
           <a href="gift-cards.html" class="btn btn-outline cta-desktop-only"><i class="fa-solid fa-gift" aria-hidden="true"></i> Gift Cards</a>
         </div>
@@ -825,7 +843,7 @@
           </address>
           <div style="margin-top:var(--space-sm);">
             <a href="private-events.html" style="color:rgba(250,247,242,0.65);font-size:0.84rem;display:block;margin-bottom:0.5rem;transition:color 0.3s;">Private Events &amp; Popups</a>
-            <a href="book.html" class="btn btn-primary" style="margin-top:var(--space-sm);width:100%;text-align:center;">Book Now</a>
+            <a href="book.html" class="btn btn-primary" data-book-cta style="margin-top:var(--space-sm);width:100%;text-align:center;">Book Now <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></a>
           </div>
         </div>
 
@@ -841,11 +859,11 @@
     </div>
   </footer>
 
-  <a href="book.html" class="floating-book-btn" aria-label="Book an appointment"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book Now</a>
+  <a href="book.html" class="floating-book-btn" aria-label="Book an appointment" data-book-cta><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book Now</a>
   <button class="back-to-top" aria-label="Back to top"><i class="fa-solid fa-chevron-up" aria-hidden="true"></i></button>
-  <a href="book.html" class="sticky-book-bar" aria-label="Book your permanent jewelry appointment">
+  <a href="book.html" class="sticky-book-bar" aria-label="Book your permanent jewelry appointment" data-book-cta>
     <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
-    <span class="sticky-book-bar-label">Book Now</span>
+    <span class="sticky-book-bar-label">Book Now — Choose Location</span>
   </a>
   <script src="assets/js/main.js"></script>
 

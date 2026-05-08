@@ -77,7 +77,7 @@ Before copying staging → root, verify:
 - [ ] Verify `robots.txt` is correct for production
 - [ ] Test on mobile (375px), tablet (768px), desktop (1280px)
 - [ ] Run Google's Rich Results Test on schema markup
-- [ ] Check all booking links (GlossGenius) open correctly
+- [ ] Check all booking links (Acuity Scheduling embed widgets) load correctly
 - [ ] Verify Google Tag Manager still fires (GTM-KCBVJLX)
 
 ---
