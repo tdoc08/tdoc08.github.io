@@ -235,23 +235,32 @@ Every page must include in `<head>`:
 - All `<a>` tags must have descriptive text — never use "click here" or "read more" alone
 
 ## Booking (Acuity Scheduling — embedded widgets)
-- **Routing page**: `book.html` — links to both location-specific booking pages
-- **Foley, AL**: `book-gulf-shores.html` — standalone page with embedded Acuity widget (Gulf Shores calendar only)
-- **West Palm Beach, FL**: `book-west-palm-beach.html` — standalone page with embedded Acuity widget (WPB calendar only)
-- **Inline widgets**: `gulf-shores.html#book` and `west-palm-beach.html#book` — Book Now buttons smooth-scroll to widget on the same page
-- **Acuity placeholders in code** (find/replace once IDs are known): `ACUITY_SUBDOMAIN`, `ACUITY_GS_CAL_ID`, `ACUITY_WPB_CAL_ID`
-- **Server-side analytics** (planned): Acuity webhooks → GTM Server-Side container at `sgtm.evermore-permanentjewelry.com` → GA4 + Google Ads. See `.claude/plans/scalable-puzzling-ladybug.md`.
+- **Routing page**: `book.html` — links to all three location-specific booking pages
+- **Foley, AL**: `book-gulf-shores.html` — standalone page with embedded Acuity widget (Gulf Shores calendar `14011805`)
+- **West Palm Beach, FL**: `book-west-palm-beach.html` — standalone page with embedded Acuity widget (WPB calendar `14012033`)
+- **Myrtle Beach, SC**: `book-myrtle-beach.html` — standalone page with embedded Acuity widget (MB calendar `14012097`)
+- **Inline widgets**: `gulf-shores.html#book`, `west-palm-beach.html#book`, `myrtle-beach.html#book` — Book Now buttons smooth-scroll to widget on the same page
+- **Server-side analytics**: Acuity webhooks → GTM Server-Side container at `sgtm.evermore-permanentjewelry.com` → GA4 + Google Ads. Calendar-ID → location mapping is in the **Acuity Webhook Receiver** Custom Client template (`gs_calendar_id`, `wpb_calendar_id`, `mb_calendar_id` fields).
 
 ## Location Info
 **Foley, AL (Gulf Shores)**
 - Address: 2601 S McKenzie St Suite 190, Foley, AL 36535 (Tanger Outlets)
 - Phone: (630) 596-7306
 - Services: Permanent Jewelry, Ear Piercings, Oyster Shucking
+- Acuity Calendar ID: `14011805`
 
 **West Palm Beach, FL**
 - Address: 1741 Palm Beach Lakes Blvd E221, West Palm Beach, FL 33401 (Tanger Outlets)
 - Phone: (630) 596-7306
-- Services: Permanent Jewelry
+- Services: Permanent Jewelry, Private Parties, Oyster Shucking
+- Acuity Calendar ID: `14012033`
+
+**Myrtle Beach, SC**
+- Address: 10835 Kings Rd Ste 215, Myrtle Beach, SC 29572 (Tanger Outlets)
+- Phone: (630) 596-7306
+- Services: Permanent Jewelry, Private Parties, Oyster Shucking
+- Acuity Calendar ID: `14012097`
+- Storefront photos: placeholder uses `gulf_shores_storefront/IMG_5219.JPEG` until real MB photos are taken; folder `myrtle_beach_storefront/` to be added later
 
 ## Page Structure Pattern
 Every staging HTML page includes:

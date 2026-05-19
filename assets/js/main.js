@@ -863,7 +863,9 @@ function initBookChooser() {
       '<li role="none"><a href="book-gulf-shores.html#book" role="menuitem">' +
       '<i class="fa-solid fa-location-dot" aria-hidden="true"></i> Gulf Shores, AL</a></li>' +
       '<li role="none"><a href="book-west-palm-beach.html#book" role="menuitem">' +
-      '<i class="fa-solid fa-location-dot" aria-hidden="true"></i> West Palm Beach, FL</a></li>';
+      '<i class="fa-solid fa-location-dot" aria-hidden="true"></i> West Palm Beach, FL</a></li>' +
+      '<li role="none"><a href="book-myrtle-beach.html#book" role="menuitem">' +
+      '<i class="fa-solid fa-location-dot" aria-hidden="true"></i> Myrtle Beach, SC</a></li>';
     document.body.appendChild(chooser);
   }
 
