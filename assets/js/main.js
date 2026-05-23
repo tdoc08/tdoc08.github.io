@@ -773,11 +773,9 @@ function initAcuityWidget() {
     session_id: '18578990',   // Acuity field ID storing GA session_id
     gclid     : '18578991'    // Acuity field ID storing gclid           (confirmed via label)
   };
-  const readCookie  = (re) => { const m = document.cookie.match(re); return m ? m[1] : ''; };
-  const gaClientId  = readCookie(/(?:^|;\s*)_ga=GA\d\.\d\.(\d+\.\d+)/);        // e.g. 1234567890.0987654321
-  const gaSessionId = readCookie(/(?:^|;\s*)_ga_[A-Z0-9]+=GS\d\.\d\.(\d+)/);   // auto-detects the GA4 stream cookie
-  const adGclid     = new URLSearchParams(window.location.search).get('gclid')
-                      || readCookie(/(?:^|;\s*)_ev_gclid=([^;]+)/);            // captured on landing by initAdClickCapture
+  const readCookie = (re) => { const m = document.cookie.match(re); return m ? m[1] : ''; };
+  // Matches both GA4 session-cookie formats: GS1 ("GS1.1.<id>.") and GS2 ("GS2.1.s<id>$...").
+  const sessionRe = /(?:^|;\s*)_ga_[A-Z0-9]+=GS\d\.\d\.s?(\d+)/;
 
   /* 1. Fire `acuity_widget_view` when widget enters viewport */
   if ('IntersectionObserver' in window) {
@@ -823,13 +821,20 @@ function initAcuityWidget() {
 
   /* 3. Build the iframe src with the stitched fields, then guard against load failure.
         The iframe ships with `data-acuity-src` (no static src) so we control the
-        single load and append the fields before the request is made. */
+        single load and append the fields before the request is made.
+        The _ga (client_id) cookie is persistent and present immediately, but the
+        _ga_<id> session cookie is written when GA4 fires — occasionally a moment
+        after this runs — so we wait briefly for it (max ~2s) before building. */
   const iframe = wrapper.querySelector('iframe[data-acuity-src], iframe[src]');
   if (iframe) {
     iframe.addEventListener('load', () => { iframe.dataset.loaded = 'true'; });
-
     const base = iframe.getAttribute('data-acuity-src') || iframe.getAttribute('src');
-    if (base) {
+
+    function buildAcuitySrc() {
+      const gaClientId  = readCookie(/(?:^|;\s*)_ga=GA\d\.\d\.(\d+\.\d+)/);
+      const gaSessionId = readCookie(sessionRe);
+      const adGclid     = new URLSearchParams(window.location.search).get('gclid')
+                          || readCookie(/(?:^|;\s*)_ev_gclid=([^;]+)/);
       const fields = [];
       if (ACUITY_FIELD.client_id  && gaClientId)  fields.push('field:' + ACUITY_FIELD.client_id  + '=' + encodeURIComponent(gaClientId));
       if (ACUITY_FIELD.session_id && gaSessionId) fields.push('field:' + ACUITY_FIELD.session_id + '=' + encodeURIComponent(gaSessionId));
@@ -837,6 +842,18 @@ function initAcuityWidget() {
       iframe.src = fields.length
         ? base + (base.indexOf('?') > -1 ? '&' : '?') + fields.join('&')
         : base;
+    }
+
+    if (base) {
+      let waits = 0;
+      (function awaitSession() {
+        if (sessionRe.test(document.cookie) || waits >= 20) {  // ~2s max (20 × 100ms)
+          buildAcuitySrc();
+        } else {
+          waits++;
+          setTimeout(awaitSession, 100);
+        }
+      })();
     }
 
     setTimeout(() => {
