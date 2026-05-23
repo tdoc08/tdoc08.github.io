@@ -736,12 +736,48 @@ function initCategoryView() {
 /* ============================================================
    17. Acuity Widget — dataLayer Events + Fallback
    ============================================================ */
+/* Capture Google Ads click IDs on landing and persist them (90 days, first-party)
+   so they can be injected into the Acuity booking iframe on a later page view.
+   Runs on every page because the gclid usually arrives on a non-booking landing page. */
+function initAdClickCapture() {
+  try {
+    const p = new URLSearchParams(window.location.search);
+    ['gclid', 'wbraid', 'gbraid'].forEach((k) => {
+      const v = p.get(k);
+      if (v) document.cookie = '_ev_' + k + '=' + v + '; path=/; max-age=7776000; SameSite=Lax';
+    });
+  } catch (e) { /* no-op */ }
+}
+
 function initAcuityWidget() {
   const wrapper = qs('.acuity-widget-wrapper');
   if (!wrapper) return;
 
   const location = wrapper.dataset.location || 'unknown';
   const dl = window.dataLayer = window.dataLayer || [];
+
+  /* 0. Session-stitch identifiers into the booking iframe (Option B).
+        The booking happens in a cross-origin Acuity iframe, so the authoritative
+        `booking_confirmed` conversion is generated server-side from Acuity's
+        webhook (sGTM). A raw webhook carries no browser context, which is why
+        GA4 reported a "(not set)" landing page and Google Ads couldn't attribute
+        the click. Passing these values through Acuity's intake form puts them in
+        the webhook payload, so sGTM can send the conversion with the real GA4
+        client_id/session_id (session stitching → landing page + source/medium
+        populate) and the gclid (Ads click attribution).
+
+        >>> CONFIG: paste the numeric Acuity intake-field IDs you created.
+            Any field left blank is skipped; the widget still loads normally. */
+  const ACUITY_FIELD = {
+    client_id : '18578989',   // Acuity field ID storing GA client_id   (Internal Tracker, form 3282818)
+    session_id: '18578990',   // Acuity field ID storing GA session_id
+    gclid     : '18578991'    // Acuity field ID storing gclid           (confirmed via label)
+  };
+  const readCookie  = (re) => { const m = document.cookie.match(re); return m ? m[1] : ''; };
+  const gaClientId  = readCookie(/(?:^|;\s*)_ga=GA\d\.\d\.(\d+\.\d+)/);        // e.g. 1234567890.0987654321
+  const gaSessionId = readCookie(/(?:^|;\s*)_ga_[A-Z0-9]+=GS\d\.\d\.(\d+)/);   // auto-detects the GA4 stream cookie
+  const adGclid     = new URLSearchParams(window.location.search).get('gclid')
+                      || readCookie(/(?:^|;\s*)_ev_gclid=([^;]+)/);            // captured on landing by initAdClickCapture
 
   /* 1. Fire `acuity_widget_view` when widget enters viewport */
   if ('IntersectionObserver' in window) {
@@ -785,10 +821,24 @@ function initAcuityWidget() {
     }
   });
 
-  /* 3. Fallback if iframe never loads */
-  const iframe = wrapper.querySelector('iframe');
+  /* 3. Build the iframe src with the stitched fields, then guard against load failure.
+        The iframe ships with `data-acuity-src` (no static src) so we control the
+        single load and append the fields before the request is made. */
+  const iframe = wrapper.querySelector('iframe[data-acuity-src], iframe[src]');
   if (iframe) {
     iframe.addEventListener('load', () => { iframe.dataset.loaded = 'true'; });
+
+    const base = iframe.getAttribute('data-acuity-src') || iframe.getAttribute('src');
+    if (base) {
+      const fields = [];
+      if (ACUITY_FIELD.client_id  && gaClientId)  fields.push('field:' + ACUITY_FIELD.client_id  + '=' + encodeURIComponent(gaClientId));
+      if (ACUITY_FIELD.session_id && gaSessionId) fields.push('field:' + ACUITY_FIELD.session_id + '=' + encodeURIComponent(gaSessionId));
+      if (ACUITY_FIELD.gclid      && adGclid)     fields.push('field:' + ACUITY_FIELD.gclid      + '=' + encodeURIComponent(adGclid));
+      iframe.src = fields.length
+        ? base + (base.indexOf('?') > -1 ? '&' : '?') + fields.join('&')
+        : base;
+    }
+
     setTimeout(() => {
       if (iframe.dataset.loaded !== 'true') {
         const fb = document.createElement('div');
@@ -1117,6 +1167,7 @@ function initEngagementTracking() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  initAdClickCapture();
   initNav();
   initReviews();
   initFAQ();
