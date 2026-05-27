@@ -830,9 +830,8 @@ function initAcuityWidget() {
     iframe.addEventListener('load', () => { iframe.dataset.loaded = 'true'; });
     const base = iframe.getAttribute('data-acuity-src') || iframe.getAttribute('src');
 
-    function buildAcuitySrc() {
+    function buildAcuitySrc(gaSessionId) {
       const gaClientId  = readCookie(/(?:^|;\s*)_ga=GA\d\.\d\.(\d+\.\d+)/);
-      const gaSessionId = readCookie(sessionRe);
       const adGclid     = new URLSearchParams(window.location.search).get('gclid')
                           || readCookie(/(?:^|;\s*)_ev_gclid=([^;]+)/);
       const fields = [];
@@ -845,13 +844,19 @@ function initAcuityWidget() {
     }
 
     if (base) {
+      // The _ga_ session cookie can still hold the PREVIOUS session at page load —
+      // gtag rolls a returning visitor to a new session a beat later. Watch for that
+      // roll (the cookie value changing) for ~2s so we inject the CURRENT session_id,
+      // not a stale/older one. If it never changes (continuing session) we use what's there.
+      const initialSid = readCookie(sessionRe);
       let waits = 0;
-      (function awaitSession() {
-        if (sessionRe.test(document.cookie) || waits >= 20) {  // ~2s max (20 × 100ms)
-          buildAcuitySrc();
+      (function resolveSession() {
+        const sid = readCookie(sessionRe);
+        if ((sid && sid !== initialSid) || waits >= 10) {  // changed (rolled), or ~2s elapsed
+          buildAcuitySrc(sid);
         } else {
           waits++;
-          setTimeout(awaitSession, 100);
+          setTimeout(resolveSession, 200);
         }
       })();
     }

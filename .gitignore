@@ -1,0 +1,32 @@
+# ──────────────────────────────────────────────────────────────
+# Evermore Permanent Jewelry — .gitignore
+# NOTE: This repo is published verbatim via GitHub Pages. Anything
+# committed is PUBLIC. Keep marketing working files and all secrets
+# out of git. Do NOT add a blanket "*.json" rule — the live site
+# needs site.webmanifest and data/reviews.json.
+# ──────────────────────────────────────────────────────────────
+
+# Marketing working files (Google Ads blueprint + import CSVs) — internal only
+marketing/
+
+# MCP config + setup runbook (local paths/account IDs; do not publish)
+.mcp.json
+MCP-SETUP.md
+
+# Analytics reports (if ever generated inside the repo)
+analytics-reports/
+
+# Secrets / credentials — never commit (used by MCP / Google APIs)
+.env
+.env.*
+.secrets/
+secrets/
+client_secret*.json
+*-sa-key.json
+*service-account*.json
+application_default_credentials.json
+google-ads.yaml
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
