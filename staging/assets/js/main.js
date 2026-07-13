@@ -867,7 +867,7 @@ function initAcuityWidget() {
         fb.className = 'acuity-widget-fallback';
         const fallbackUrl = wrapper.dataset.fallbackUrl || '#';
         fb.innerHTML = '<p>Booking widget is taking longer than expected. ' +
-          'Call <a href="tel:+16305967306">(630) 596-7306</a> or ' +
+          'Call <a href="#" data-call-cta>us</a> or ' +
           '<a href="' + fallbackUrl + '" target="_blank" rel="noopener">book directly</a>.</p>';
         wrapper.appendChild(fb);
         dl.push({ event: 'acuity_widget_load_failed', acuity_location: location });
@@ -1079,6 +1079,137 @@ function initBookChooser() {
 }
 
 /* ============================================================
+   19b. Shared Call Chooser (any [data-call-cta] element)
+   Mirrors the Book Chooser: click any Call CTA -> popover with the
+   three location phone numbers. Location-specific pages should use
+   plain tel: links directly (unambiguous context); [data-call-cta]
+   is for shared pages where the visitor picks their location first.
+   ============================================================ */
+function initCallChooser() {
+  const triggers = qsa('[data-call-cta]');
+  if (!triggers.length) return;
+
+  const LOCATIONS = [
+    { key: 'gulf_shores',     label: 'Gulf Shores, AL',     display: '(251) 495-2134', tel: '+12514952134' },
+    { key: 'myrtle_beach',    label: 'Myrtle Beach, SC',    display: '(854) 894-3736', tel: '+18548943736' },
+    { key: 'west_palm_beach', label: 'West Palm Beach, FL', display: '(561) 568-0842', tel: '+15615680842' }
+  ];
+
+  /* Build the shared chooser element (single instance, appended to body) */
+  let chooser = qs('#call-chooser');
+  if (!chooser) {
+    chooser = document.createElement('ul');
+    chooser.id = 'call-chooser';
+    chooser.className = 'call-chooser book-chooser'; /* share book-chooser styles */
+    chooser.setAttribute('role', 'menu');
+    chooser.setAttribute('aria-label', 'Choose your location to call');
+    chooser.innerHTML = LOCATIONS.map(loc =>
+      '<li role="none"><a href="tel:' + loc.tel + '" data-location="' + loc.key + '" role="menuitem">' +
+      '<i class="fa-solid fa-phone" aria-hidden="true"></i> ' +
+      '<span class="call-chooser-label">' + loc.label + '</span>' +
+      '<span class="call-chooser-number">' + loc.display + '</span></a></li>'
+    ).join('');
+    document.body.appendChild(chooser);
+  }
+
+  let activeTrigger = null;
+
+  const close = () => {
+    chooser.classList.remove('is-open');
+    document.body.classList.remove('book-chooser-open');
+    if (activeTrigger) {
+      activeTrigger.setAttribute('aria-expanded', 'false');
+      activeTrigger = null;
+    }
+  };
+
+  const isMobile = () => window.matchMedia('(max-width: 600px)').matches;
+
+  const clearInlinePosition = () => {
+    chooser.style.removeProperty('top');
+    chooser.style.removeProperty('left');
+    chooser.style.removeProperty('right');
+    chooser.style.removeProperty('bottom');
+    chooser.style.removeProperty('width');
+    chooser.style.removeProperty('position');
+  };
+
+  const positionChooser = (trigger) => {
+    clearInlinePosition();
+    if (isMobile()) return;
+    const rect = trigger.getBoundingClientRect();
+    const scrollY = window.scrollY || window.pageYOffset;
+    const chooserH = 168;
+    const chooserW = 300;
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const showAbove = spaceBelow < chooserH + 20;
+    if (showAbove) {
+      chooser.style.top = (rect.top + scrollY - chooserH - 10) + 'px';
+    } else {
+      chooser.style.top = (rect.bottom + scrollY + 8) + 'px';
+    }
+    let left = rect.left + (rect.width / 2) - (chooserW / 2);
+    left = Math.max(10, Math.min(left, window.innerWidth - chooserW - 10));
+    chooser.style.left = left + 'px';
+    chooser.style.right = 'auto';
+    chooser.style.width = chooserW + 'px';
+  };
+
+  const open = (trigger) => {
+    if (activeTrigger && activeTrigger !== trigger) {
+      activeTrigger.setAttribute('aria-expanded', 'false');
+    }
+    activeTrigger = trigger;
+    positionChooser(trigger);
+    chooser.classList.add('is-open');
+    document.body.classList.add('book-chooser-open');
+    trigger.setAttribute('aria-expanded', 'true');
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'call_chooser_opened',
+      cta_location: getCtaLocation(trigger),
+      page_path: window.location.pathname
+    });
+  };
+
+  triggers.forEach(trigger => {
+    trigger.setAttribute('aria-haspopup', 'true');
+    trigger.setAttribute('aria-expanded', 'false');
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (activeTrigger === trigger && chooser.classList.contains('is-open')) {
+        close();
+      } else {
+        open(trigger);
+      }
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!chooser.contains(e.target) && !e.target.closest('[data-call-cta]')) close();
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+
+  /* Close after selecting a location; initCallNowTracking still fires call_now_click. */
+  chooser.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'call_location_selected',
+        selected_location: link.getAttribute('data-location') || 'unknown',
+        cta_location: activeTrigger ? getCtaLocation(activeTrigger) : 'unknown',
+        page_path: window.location.pathname
+      });
+      close();
+    });
+  });
+
+  window.addEventListener('scroll', () => { if (chooser.classList.contains('is-open')) close(); }, { passive: true });
+  window.addEventListener('resize', () => { if (chooser.classList.contains('is-open')) close(); });
+}
+
+/* ============================================================
    20. Call Now Tracking — every tel: link site-wide
    ============================================================ */
 function initCallNowTracking() {
@@ -1216,6 +1347,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBookDropdown();
   /* Book Now Inline Chooser (data-book-cta) */
   initBookChooser();
+  initCallChooser();
   /* Analytics: Call Now tel: link tracking */
   initCallNowTracking();
   /* Analytics: scroll depth + engaged time */

@@ -5790,6 +5790,39 @@ p:last-child { margin-bottom: 0; }
     animation: fade-in 0.2s ease forwards;
   }
 
+  /* Call chooser mobile — center the two-line label/number */
+  .call-chooser a {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 1rem;
+  }
+  .call-chooser a .call-chooser-label,
+  .call-chooser a .call-chooser-number { text-align: center; }
+}
+
+/* ==================================================================
+   35b. Call Chooser — inherits .book-chooser layout but shows a two-line
+   label (city) + number per row.
+   ================================================================== */
+.call-chooser a {
+  flex-wrap: wrap;
+  row-gap: 0.15rem;
+  column-gap: 0.6rem;
+}
+.call-chooser a .call-chooser-label {
+  flex: 1 1 auto;
+}
+.call-chooser a .call-chooser-number {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--gold-light);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
   @keyframes fade-in {
     from { opacity: 0; }
     to { opacity: 1; }
