@@ -4553,15 +4553,16 @@ p:last-child { margin-bottom: 0; }
 .pcc-pricing-table { width: 100%; }
 .pcc-price-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  text-align: center;
   padding: 0.65rem 0;
   border-bottom: 1px solid rgba(250, 247, 242, 0.12);
   font-size: 1.15rem;
 }
 .pcc-price-row:last-child { border-bottom: none; }
 .pcc-price-row span:first-child { color: #FFFFFF; font-weight: 700; }
-.pcc-price-row span:last-child {
+.pcc-price-row span + span {
   color: var(--gold-light);
   font-weight: 700;
   font-family: var(--font-label);
