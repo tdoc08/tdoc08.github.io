@@ -3858,6 +3858,27 @@ p:last-child { margin-bottom: 0; }
 @media (min-width: 769px) {
   .page-home .hero--video .hero-content h1 { white-space: nowrap; }
 }
+/* City line inside the location-page H1 — styled like the eyebrow label, but part of the
+   heading so Google reads "Permanent Jewelry. Gulf Shores, Alabama" as the H1 */
+.hero-h1-place {
+  display: block;
+  margin-top: var(--space-24);
+  font-family: var(--font-label);
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: 0.22em;
+  line-height: 1.6;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  text-shadow: none;
+}
+@media (max-width: 768px) {
+  .hero-h1-place { margin-top: var(--space-16); font-size: 0.74rem; letter-spacing: 0.16em; white-space: normal; }
+}
+@media (max-width: 768px) and (max-height: 600px) {
+  .hero-h1-place { margin-top: var(--space-12); font-size: 0.66rem; }
+}
 .page-home .hero--video .hero-content .eyebrow {
   margin-bottom: var(--space-16);
 }
