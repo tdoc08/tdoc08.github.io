@@ -214,7 +214,7 @@ Every page must include in `<head>`:
   "name": "Evermore Permanent Jewelry",
   "image": "https://evermore-permanentjewelry.com/evermore_photos/logos/[logo-file]",
   "url": "https://evermore-permanentjewelry.com",
-  "telephone": "(630) 596-7306",
+  "telephone": "(251) 495-2134",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "2601 S McKenzie St Suite 190",
@@ -243,21 +243,25 @@ Every page must include in `<head>`:
 - **Server-side analytics**: Acuity webhooks → GTM Server-Side container at `sgtm.evermore-permanentjewelry.com` → GA4 + Google Ads. Calendar-ID → location mapping is in the **Acuity Webhook Receiver** Custom Client template (`gs_calendar_id`, `wpb_calendar_id`, `mb_calendar_id` fields).
 
 ## Location Info
+- Each studio has its own phone number (below); (630) 596-7306 is no longer used on the site.
+- Gift cards: Square eGift (`https://app.squareup.com/gift/MLVGSRNW8ZXRJ/order`), redeemable at all three studios.
+- Oyster shucking is offered at all three studios; ear piercing at Foley/Gulf Shores only.
+
 **Foley, AL (Gulf Shores)**
 - Address: 2601 S McKenzie St Suite 190, Foley, AL 36535 (Tanger Outlets)
-- Phone: (630) 596-7306
-- Services: Permanent Jewelry, Ear Piercings, Oyster Shucking
+- Phone: (251) 495-2134 (`tel:+12514952134`)
+- Services: Permanent Jewelry, Ear Piercings (only studio that pierces — Studex device), Oyster Shucking, Private Parties
 - Acuity Calendar ID: `14011805`
 
 **West Palm Beach, FL**
 - Address: 1741 Palm Beach Lakes Blvd E221, West Palm Beach, FL 33401 (Tanger Outlets)
-- Phone: (630) 596-7306
+- Phone: (561) 568-0842 (`tel:+15615680842`)
 - Services: Permanent Jewelry, Private Parties, Oyster Shucking
 - Acuity Calendar ID: `14012033`
 
 **Myrtle Beach, SC**
 - Address: 10835 Kings Rd Ste 215, Myrtle Beach, SC 29572 (Tanger Outlets)
-- Phone: (630) 596-7306
+- Phone: (854) 894-3736 (`tel:+18548943736`)
 - Services: Permanent Jewelry, Private Parties, Oyster Shucking
 - Acuity Calendar ID: `14012097`
 - Storefront photos: placeholder uses `gulf_shores_storefront/IMG_5219.JPEG` until real MB photos are taken; folder `myrtle_beach_storefront/` to be added later

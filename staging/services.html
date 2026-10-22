@@ -35,7 +35,7 @@
       "@type": "Service",
       "name": "Boutique Ear Piercings",
       "provider": { "@type": "JewelryStore", "name": "Evermore Permanent Jewelry" },
-      "description": "Hand-pressured boutique ear piercings using sterile single-use cartridges. No guns. Aftercare included. Available at Foley, AL location only.",
+      "description": "Boutique ear piercings with an FDA-registered Studex device and sterile, single-use cartridges. Aftercare included. Available at the Gulf Shores (Foley), AL studio only.",
       "areaServed": "Foley, AL"
     },
     {
@@ -43,8 +43,8 @@
       "@type": "Service",
       "name": "Oyster Shucking Experience",
       "provider": { "@type": "JewelryStore", "name": "Evermore Permanent Jewelry" },
-      "description": "Pick an oyster, shuck it, discover your pearl, and have it set into a necklace on the spot. Foley, AL only.",
-      "areaServed": "Foley, AL"
+      "description": "Pick an oyster, shuck it, discover your pearl, and have it set into a necklace on the spot. Available at all three Evermore studios.",
+      "areaServed": ["Gulf Shores, AL", "West Palm Beach, FL", "Myrtle Beach, SC"]
     }
   ]
   </script>
@@ -77,7 +77,7 @@
             <li><a href="locations.html">Locations</a></li>
             <li><a href="gallery.html">Gallery</a></li>
             <li><a href="blog/index.html">Blog</a></li>
-            <li><a href="gift-cards.html">Gift Cards</a></li>
+            <li><a href="gift-cards.html" class="nav-gift"><i class="fa-solid fa-gift" aria-hidden="true"></i> Gift Cards</a></li>
             <li><a href="book.html" class="nav-cta btn">Book Now</a></li>
           </ul>
         </div>
@@ -101,6 +101,7 @@
             <a href="book.html" class="btn btn-primary">Book Now</a>
             <a href="#" data-call-cta class="btn btn-outline"><i class="fa-solid fa-phone" aria-hidden="true"></i> Call Now</a>
           </div>
+          <p class="hero-gift-line"><i class="fa-solid fa-gift" aria-hidden="true"></i><span data-gift-hero>Shopping for someone special?</span> <a href="https://app.squareup.com/gift/MLVGSRNW8ZXRJ/order" target="_blank" rel="noopener" aria-label="Send an eGift card (opens Square checkout in a new tab)">Send an eGift card</a></p>
         </div>
       </div>
     </section>
@@ -114,7 +115,7 @@
             <img src="../evermore_photos/gulf_shores_storefront/IMG_5219.JPEG" alt="Permanent gold bracelet welded on wrist" loading="lazy" width="600" height="750">
           </div>
           <div class="service-detail-text reveal reveal-delay-2">
-            <span class="service-tag">Available at Both Locations</span>
+            <span class="service-tag">Available at All 3 Studios</span>
             <h2 id="pj-heading">Permanent Jewelry</h2>
             <div class="divider" style="margin:var(--space-sm) 0;"></div>
             <p>Our signature service. Each piece is custom-fitted and welded directly onto your wrist, ankle, neck, or finger using a small, painless spark welder. No clasp. No taking it off. Just beautiful, seamless jewelry that's truly yours forever.</p>
@@ -151,10 +152,10 @@
             <span class="service-tag">Gulf Shores, AL Only</span>
             <h2 id="ep-heading">Boutique Ear Piercings</h2>
             <div class="divider" style="margin:var(--space-sm) 0;"></div>
-            <p>Skip the mall kiosks and treat yourself to a truly elevated piercing experience. We use a hand-pressured system — no loud guns, no blunt force. Just clean, precise, and quiet.</p>
+            <p>Skip the mall kiosks and treat yourself to a truly elevated piercing experience. We pierce with an FDA-registered Studex device and a sterile, single-use cartridge — clean, precise and comfortable.</p>
             <p>All jewelry is hypoallergenic. Starter jewelry and aftercare solution are included with every piercing. Perfect for lobe piercings on all ages, curated ear stacks, and more.</p>
             <ul class="feature-list" aria-label="Ear piercing features">
-              <li><i class="fa-solid fa-check" aria-hidden="true"></i> Hand-pressured system — no piercing guns</li>
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i> FDA-registered Studex piercing device</li>
               <li><i class="fa-solid fa-check" aria-hidden="true"></i> Sterile single-use cartridges</li>
               <li><i class="fa-solid fa-check" aria-hidden="true"></i> Hypoallergenic starter jewelry included</li>
               <li><i class="fa-solid fa-check" aria-hidden="true"></i> Aftercare solution included</li>
@@ -168,7 +169,7 @@
             </div>
             <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:var(--space-sm);">
               <a href="gulf-shores.html" class="btn btn-outline-dark">Gulf Shores Location</a>
-              <a href="book.html" class="btn btn-primary">Book at Gulf Shores</a>
+              <a href="ear-piercings.html#book" class="btn btn-primary">Book at Gulf Shores</a>
             </div>
           </div>
         </div>
@@ -201,8 +202,8 @@
               <div class="price-row"><span>Pearl Reveal + Necklace Setting</span><span>$55</span></div>
             </div>
             <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:var(--space-sm);">
-              <a href="gulf-shores.html" class="btn btn-outline-dark">Gulf Shores Location</a>
-              <a href="book.html" class="btn btn-primary">Book at Gulf Shores</a>
+              <a href="locations.html" class="btn btn-outline-dark">Our 3 Locations</a>
+              <a href="book.html" class="btn btn-primary" data-book-cta>Book Now</a>
             </div>
           </div>
         </div>
@@ -221,14 +222,14 @@
             <h2 id="pe-heading">Private Events &amp; Popups</h2>
             <div class="divider" style="margin:var(--space-sm) 0;"></div>
             <p>We bring the Evermore studio experience directly to your event. Whether it's a bachelorette party in a beach house, a birthday dinner, a corporate wellness event, or a market popup — we pack everything up and come to you.</p>
-            <p>We travel within approximately 2 hours of our Foley, AL and West Palm Beach, FL locations. Exceptions can be made for special travel requests — just ask.</p>
+            <p>We travel within approximately 2 hours of our Gulf Shores (Foley), AL, West Palm Beach, FL and Myrtle Beach, SC studios. Exceptions can be made for special travel requests — just ask.</p>
             <ul class="feature-list" aria-label="Private events features">
               <li><i class="fa-solid fa-check" aria-hidden="true"></i> Bachelorette &amp; bridal parties</li>
               <li><i class="fa-solid fa-check" aria-hidden="true"></i> Birthdays &amp; milestone celebrations</li>
               <li><i class="fa-solid fa-check" aria-hidden="true"></i> Corporate events &amp; team activities</li>
               <li><i class="fa-solid fa-check" aria-hidden="true"></i> Market popups &amp; festivals</li>
               <li><i class="fa-solid fa-check" aria-hidden="true"></i> Girls' trips &amp; sorority events</li>
-              <li><i class="fa-solid fa-check" aria-hidden="true"></i> Travel within ~2 hrs of either location</li>
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i> Travel within ~2 hrs of any of our 3 studios</li>
             </ul>
             <div style="margin-top:var(--space-sm);display:flex;gap:var(--space-sm);flex-wrap:wrap;">
               <a href="private-events.html" class="btn btn-primary">Learn More &amp; Inquire</a>
@@ -361,6 +362,29 @@
       </div>
     </section>
 
+    <!-- ==================== GIFT CARDS ==================== -->
+    <section class="gift-band" aria-labelledby="gift-band-heading">
+      <div class="container gift-band-inner">
+        <div class="gift-card-visual reveal" aria-hidden="true">
+          <div class="gift-card-visual-back"></div>
+          <div class="gift-card-visual-front">
+            <img src="../evermore_photos/logos/Logo Files/Primary/Evermore_Logo_Primary_Reverse.png" alt="" loading="lazy" width="280" height="106">
+            <span class="gift-card-visual-label">eGift Card</span>
+          </div>
+        </div>
+        <div class="gift-band-text reveal reveal-delay-1">
+          <span class="eyebrow" data-gift-eyebrow>The Perfect Gift</span>
+          <h2 id="gift-band-heading" class="gift-band-heading">Give the Gift<br><em>of Forever.</em></h2>
+          <p>A piece they'll wear every single day. Evermore eGift cards arrive instantly by email, never expire, and can be used for any service.</p>
+          <div class="gift-band-btns">
+            <a href="https://app.squareup.com/gift/MLVGSRNW8ZXRJ/order" class="btn btn-primary" target="_blank" rel="noopener" aria-label="Buy an eGift card (opens Square checkout in a new tab)"><i class="fa-solid fa-gift" aria-hidden="true"></i> Buy an eGift Card</a>
+            <a href="gift-cards.html" class="btn btn-outline">How Gift Cards Work</a>
+          </div>
+          <p class="gift-band-note"><i class="fa-solid fa-lock" aria-hidden="true"></i> Secure checkout by Square</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ==================== CTA STRIP ==================== -->
     <section class="cta-strip" aria-label="Book an appointment">
       <div class="container">
@@ -411,7 +435,7 @@
       </div>
       <div class="footer-bottom">
         <p>&copy; <span id="footer-year"></span> Evermore Permanent Jewelry. All rights reserved.</p>
-        <p><a href="sitemap.xml">Sitemap</a> &nbsp;&middot;&nbsp; <a href="mailto:info@evermore-permanentjewelry.com">Contact</a></p>
+        <p><a href="sitemap.xml">Sitemap</a> &nbsp;&middot;&nbsp; <a href="mailto:info@evermore-permanentjewelry.com">Contact</a> &nbsp;&middot;&nbsp; <a href="privacy.html">Privacy Policy</a></p>
       </div>
     </div>
   </footer>
@@ -421,7 +445,7 @@
   <!-- Back to Top -->
   <button class="back-to-top" aria-label="Back to top"><i class="fa-solid fa-chevron-up" aria-hidden="true"></i></button>
   <a href="book.html"
-     class="sticky-book-bar" target="_blank" rel="noopener"
+     class="sticky-book-bar"
      aria-label="Book your permanent jewelry appointment at Evermore">
     <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
     <span class="sticky-book-bar-label">Book Now</span>

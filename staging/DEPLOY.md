@@ -71,7 +71,7 @@ the Google Ads UI — listed in `marketing/google-ads/BLUEPRINT.md` → *Assets 
 
 | Page | Removed | Notes |
 |---|---|---|
-| `pricing.html` | 2026-10-22 | Prices removed from the site; homepage section is now "Chain Options" (`#pricing`). Remove the "Pricing" sitelink in Google Ads. |
+| `pricing.html` | 2026-10-22 | Prices removed from the site. `staging/pricing.html` is now a redirect stub to the homepage (meta refresh + noindex + canonical) so old links and the Ads sitelink still land somewhere. Remove the "Pricing" sitelink in Google Ads when convenient. |
 
 ---
 

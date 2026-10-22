@@ -109,7 +109,7 @@
   <meta name="theme-color" content="#0D0D0D">
 
 </head>
-<body class="page-home page-has-sticky-bar">
+<body class="page-home page-has-sticky-bar" data-location="gulf_shores">
 
   <!-- GTM noscript -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KCBVJLX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -133,7 +133,7 @@
             <li><a href="locations.html">Locations</a></li>
             <li><a href="gallery.html">Gallery</a></li>
             <li><a href="blog/index.html">Blog</a></li>
-            <li><a href="gift-cards.html">Gift Cards</a></li>
+            <li><a href="gift-cards.html" class="nav-gift"><i class="fa-solid fa-gift" aria-hidden="true"></i> Gift Cards</a></li>
             <li><a href="book.html" class="nav-cta btn">Book Now</a></li>
           </ul>
         </div>
@@ -147,22 +147,15 @@
     <div class="hero-pricing-wrap">
 
       <!-- ==================== HERO ==================== -->
-      <section class="hero" id="home" aria-label="Evermore Permanent Jewelry — Gulf Shores, Alabama">
-        <canvas id="chainCanvas" aria-hidden="true"></canvas>
-        <div class="hero-bg" aria-hidden="true"></div>
-        <div class="hero-wordmark-bg" aria-hidden="true">
-          <span class="hw-row">
-            <span class="hw-letter" style="--i:0">E</span>
-            <span class="hw-letter" style="--i:1">V</span>
-            <span class="hw-letter" style="--i:2">E</span>
-            <span class="hw-letter" style="--i:3">R</span>
-          </span>
-          <span class="hw-row">
-            <span class="hw-letter" style="--i:4">M</span>
-            <span class="hw-letter" style="--i:5">O</span>
-            <span class="hw-letter" style="--i:6">R</span>
-            <span class="hw-letter" style="--i:7">E</span>
-          </span>
+      <section class="hero hero--video" id="home" aria-label="Evermore Permanent Jewelry — Gulf Shores, Alabama">
+        <div class="hero-media" aria-hidden="true">
+          <picture>
+            <source media="(orientation: portrait) and (max-width: 900px)" srcset="assets/video/gulf-shores-mobile-poster.webp" type="image/webp">
+            <source media="(orientation: portrait) and (max-width: 900px)" srcset="assets/video/gulf-shores-mobile-poster.jpg">
+            <source srcset="assets/video/gulf-shores-desktop-poster.webp" type="image/webp">
+            <img class="hero-poster" src="assets/video/gulf-shores-desktop-poster.jpg" alt="" width="1920" height="1080" fetchpriority="high" decoding="async">
+          </picture>
+          <video class="hero-video" muted playsinline loop preload="none" data-video="assets/video/gulf-shores" data-loop-start-desktop="4.9" data-loop-start-mobile="4.9"></video>
         </div>
         <div class="container">
           <div class="hero-content">
@@ -173,38 +166,54 @@
             <p>In-store appointments &amp; private parties — walk-ins always welcome. Now at Tanger Outlets in Foley, AL, just minutes from Gulf Shores &amp; Orange Beach.</p>
             <div class="hero-btns">
               <a href="#book" class="btn btn-primary">Book Now</a>
+              <a href="https://app.squareup.com/gift/MLVGSRNW8ZXRJ/order" class="btn btn-gift-hero" target="_blank" rel="noopener" aria-label="Give a gift card (opens Square checkout in a new tab)"><i class="fa-solid fa-gift" aria-hidden="true"></i> Give a Gift Card</a>
               <a href="tel:+12514952134" class="btn btn-outline"><i class="fa-solid fa-phone" aria-hidden="true"></i> Call Now</a>
             </div>
           </div>
         </div>
 
-        <!-- Stats bar -->
-        <div class="stats-bar" aria-label="Quick stats">
-          <div class="stats-bar-track" aria-hidden="true">
-            <span>10K+ Instagram Followers</span><span class="stats-bar-dot">·</span>
-            <span>500+ Happy Clients</span><span class="stats-bar-dot">·</span>
-            <span>5-Star Google Rated</span><span class="stats-bar-dot">·</span>
-            <span>Gulf Shores, Alabama · Tanger Outlets</span><span class="stats-bar-dot">·</span>
-            <span>Walk-Ins Welcome</span><span class="stats-bar-dot">·</span>
-            <span>10K+ Instagram Followers</span><span class="stats-bar-dot">·</span>
-            <span>500+ Happy Clients</span><span class="stats-bar-dot">·</span>
-            <span>5-Star Google Rated</span><span class="stats-bar-dot">·</span>
-            <span>Gulf Shores, Alabama · Tanger Outlets</span><span class="stats-bar-dot">·</span>
-            <span>Walk-Ins Welcome</span><span class="stats-bar-dot">·</span>
-          </div>
-        </div>
       </section>
 
-      <!-- Decorative rings -->
-      <div class="hero-deco" aria-hidden="true">
-        <div class="hero-deco-ring"></div>
-        <div class="hero-deco-ring hero-deco-ring--2"></div>
-        <div class="hero-deco-ring hero-deco-ring--3"></div>
-        <div class="hero-deco-ring hero-deco-ring--4"></div>
-        <div class="hero-deco-dot"></div>
+      <!-- Stats strip -->
+      <div class="stats-bar" aria-label="Quick stats">
+        <div class="stats-bar-track" aria-hidden="true">
+          <span>10K+ Instagram Followers</span><span class="stats-bar-dot">·</span>
+          <span>500+ Happy Clients</span><span class="stats-bar-dot">·</span>
+          <span>5-Star Google Rated</span><span class="stats-bar-dot">·</span>
+          <span>Gulf Shores, Alabama · Tanger Outlets</span><span class="stats-bar-dot">·</span>
+          <span>Walk-Ins Welcome</span><span class="stats-bar-dot">·</span>
+          <span>10K+ Instagram Followers</span><span class="stats-bar-dot">·</span>
+          <span>500+ Happy Clients</span><span class="stats-bar-dot">·</span>
+          <span>5-Star Google Rated</span><span class="stats-bar-dot">·</span>
+          <span>Gulf Shores, Alabama · Tanger Outlets</span><span class="stats-bar-dot">·</span>
+          <span>Walk-Ins Welcome</span><span class="stats-bar-dot">·</span>
+        </div>
       </div>
 
     </div><!-- /hero-pricing-wrap -->
+
+    <!-- ==================== GIFT CARDS ==================== -->
+    <section class="gift-band" aria-labelledby="gift-band-heading">
+      <div class="container gift-band-inner">
+        <div class="gift-card-visual reveal" aria-hidden="true">
+          <div class="gift-card-visual-back"></div>
+          <div class="gift-card-visual-front">
+            <img src="../evermore_photos/logos/Logo Files/Primary/Evermore_Logo_Primary_Reverse.png" alt="" loading="lazy" width="280" height="106">
+            <span class="gift-card-visual-label">eGift Card</span>
+          </div>
+        </div>
+        <div class="gift-band-text reveal reveal-delay-1">
+          <span class="eyebrow" data-gift-eyebrow>The Perfect Gift</span>
+          <h2 id="gift-band-heading" class="gift-band-heading">Give the Gift<br><em>of Forever.</em></h2>
+          <p>A piece they'll wear every single day. Evermore eGift cards arrive instantly by email, never expire, and can be used for any service.</p>
+          <div class="gift-band-btns">
+            <a href="https://app.squareup.com/gift/MLVGSRNW8ZXRJ/order" class="btn btn-primary" target="_blank" rel="noopener" aria-label="Buy an eGift card (opens Square checkout in a new tab)"><i class="fa-solid fa-gift" aria-hidden="true"></i> Buy an eGift Card</a>
+            <a href="gift-cards.html" class="btn btn-outline">How Gift Cards Work</a>
+          </div>
+          <p class="gift-band-note"><i class="fa-solid fa-lock" aria-hidden="true"></i> Secure checkout by Square</p>
+        </div>
+      </div>
+    </section>
 
     <!-- ======================================================
          DIVIDER
@@ -250,7 +259,7 @@
             <div class="service-card-body">
               <span class="service-tag">Gulf Shores, AL Only</span>
               <h3>Ear Piercings</h3>
-              <p>Boutique ear piercings using a hand-pressured, no-gun system with sterile single-use cartridges. Aftercare solution included. Perfect for all ages.</p>
+              <p>Boutique ear piercings with an FDA-registered Studex device and a sterile, single-use cartridge. Aftercare solution included. Perfect for all ages.</p>
               <div class="btn-group">
                 <a href="services.html#ear-piercings" class="btn btn-outline" aria-label="Learn more about Ear Piercings">Learn More</a>
                 <a href="#book" class="btn btn-primary">Book Now</a>
@@ -263,7 +272,7 @@
               <img src="../evermore_photos/gulf_shores_storefront/IMG_6147.jpeg" alt="Pearl from an oyster shucking experience at Evermore" loading="lazy" width="400" height="300">
             </div>
             <div class="service-card-body">
-              <span class="service-tag">Gulf Shores, AL Only</span>
+              <span class="service-tag">All 3 Studios</span>
               <h3>Oyster Shucking Experience</h3>
               <p>Pick your oyster, crack it open, and discover your pearl — then turn it into a necklace on the spot. A truly unique, memorable keepsake experience.</p>
               <div class="btn-group">
@@ -280,7 +289,7 @@
             <div class="service-card-body">
               <span class="service-tag">We Travel to You</span>
               <h3>Private Events &amp; Popups</h3>
-              <p>Bachelorette parties, birthdays, corporate events, market popups — we bring the studio to you. Available within ~2 hours of either location.</p>
+              <p>Bachelorette parties, birthdays, corporate events, market popups — we bring the studio to you. Available within ~2 hours of any of our three studios.</p>
               <div class="btn-group">
                 <a href="private-events.html" class="btn btn-outline">Inquire Now</a>
                 <a href="tel:+12514952134" class="btn btn-primary"><i class="fa-solid fa-phone" aria-hidden="true"></i> Call Now</a>
@@ -785,7 +794,6 @@
                   height="800"
                   frameBorder="0"
                   fetchpriority="high"></iframe>
-          <script src="https://embed.acuityscheduling.com/js/embed.js" type="text/javascript" async></script>
           <noscript>
             <div class="acuity-widget-fallback">
               <p>Online booking requires JavaScript. Call <a href="tel:+12514952134">(251) 495-2134</a>
@@ -793,6 +801,7 @@
             </div>
           </noscript>
         </div>
+        <p class="booking-gift-note"><i class="fa-solid fa-gift" aria-hidden="true"></i>Booking for someone else? <a href="https://app.squareup.com/gift/MLVGSRNW8ZXRJ/order" target="_blank" rel="noopener" aria-label="Send an eGift card instead (opens Square checkout in a new tab)">Send an eGift card</a> and let them pick their piece.</p>
       </div>
     </section>
 
@@ -890,7 +899,7 @@
         <p>&copy; <span id="footer-year"></span> Evermore Permanent Jewelry. All rights reserved.</p>
         <p>
           <a href="sitemap.xml">Sitemap</a> &nbsp;&middot;&nbsp;
-          <a href="mailto:info@evermore-permanentjewelry.com">Contact</a>
+          <a href="mailto:info@evermore-permanentjewelry.com">Contact</a> &nbsp;&middot;&nbsp; <a href="privacy.html">Privacy Policy</a>
         </p>
       </div>
     </div>
@@ -905,251 +914,6 @@
 
   <script src="assets/js/main.js"></script>
 
-  <script>
-(function () {
-  const canvas = document.getElementById('chainCanvas');
-  const ctx    = canvas.getContext('2d');
-  let W, H, rafId, sparkleTimer, isVisible = true;
-
-  function resize() {
-    W = canvas.width  = canvas.offsetWidth;
-    H = canvas.height = canvas.offsetHeight;
-  }
-  resize();
-
-  let resizeTimer;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => { resize(); buildChains(); }, 200);
-  });
-
-  const GOLD_BASE = [201, 168,  76];
-  const GOLD_HI   = [240, 218, 145];
-  const GOLD_SH   = [140, 108,  38];
-
-  function goldRGBA(rgb, a) {
-    return `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${a.toFixed(3)})`;
-  }
-
-  const DIAG_ANGLE = Math.PI / 6;
-  const cos = Math.cos(DIAG_ANGLE);
-  const sin = Math.sin(DIAG_ANGLE);
-  const STYLES = ['cable','cable','figaro','satellite','oval'];
-
-  class Chain {
-    constructor(offset) {
-      this.perpOffset = offset;
-      this.boot(true);
-    }
-    boot(pre) {
-      this.style = STYLES[Math.floor(Math.random() * STYLES.length)];
-      this.lw    = 3.5 + Math.random() * 3.5;
-      this.lh    = 1.6 + Math.random() * 1.4;
-      this.pitch = this.lh * 2 + 1.2 + Math.random() * 2.0;
-      this.sw    = 0.9 + Math.random() * 0.7;
-      this.alpha  = 0;
-      this.maxA   = 0.115 + Math.random() * 0.148;
-      this.speed = 0.28 + Math.random() * 0.32;
-      this.t = pre ? Math.random() * 2000 : 0;
-      this.shimPhase = Math.random() * Math.PI * 2;
-      this.shimSpeed = 0.028 + Math.random() * 0.022;
-      this.shimWave  = 18 + Math.random() * 24;
-    }
-    chainXY(pos) {
-      const px = pos * cos - this.perpOffset * sin;
-      const py = pos * sin + this.perpOffset * cos;
-      return { x: px, y: py };
-    }
-    shim(i) {
-      const wave = Math.sin(this.shimPhase + i * (Math.PI * 2 / this.shimWave));
-      return 0.22 + 0.78 * ((wave + 1) / 2);
-    }
-    drawOvalLink(cx, cy, rx, ry, shimmer) {
-      const a = this.alpha * (0.55 + 0.45 * shimmer);
-      ctx.strokeStyle = goldRGBA(GOLD_SH, a * 0.55);
-      ctx.lineWidth   = this.sw + 1.2;
-      ctx.beginPath();
-      ctx.ellipse(cx + 0.6, cy + 0.8, rx, ry, 0, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.strokeStyle = goldRGBA(GOLD_BASE, a);
-      ctx.lineWidth   = this.sw;
-      ctx.beginPath();
-      ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
-      ctx.stroke();
-      if (shimmer > 0.5) {
-        ctx.strokeStyle = goldRGBA(GOLD_HI, a * 0.75 * shimmer);
-        ctx.lineWidth   = this.sw * 0.55;
-        ctx.beginPath();
-        ctx.ellipse(cx - rx * 0.12, cy - ry * 0.18, rx * 0.62, ry * 0.48, -0.2, Math.PI * 1.08, Math.PI * 1.92);
-        ctx.stroke();
-      }
-    }
-    drawBead(cx, cy, r, shimmer) {
-      const a = this.alpha * (0.55 + 0.45 * shimmer);
-      ctx.strokeStyle = goldRGBA(GOLD_SH, a * 0.5);
-      ctx.lineWidth   = this.sw + 0.8;
-      ctx.beginPath(); ctx.arc(cx + 0.5, cy + 0.6, r, 0, Math.PI * 2); ctx.stroke();
-      ctx.strokeStyle = goldRGBA(GOLD_BASE, a);
-      ctx.lineWidth   = this.sw;
-      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
-      if (shimmer > 0.55) {
-        ctx.fillStyle = goldRGBA(GOLD_HI, a * 0.5 * shimmer);
-        ctx.beginPath(); ctx.arc(cx - r * 0.28, cy - r * 0.28, r * 0.32, 0, Math.PI * 2); ctx.fill();
-      }
-    }
-    drawWire(x1, y1, x2, y2, shimmer) {
-      const a = this.alpha * (0.3 + 0.2 * shimmer);
-      ctx.strokeStyle = goldRGBA(GOLD_BASE, a);
-      ctx.lineWidth   = this.sw * 0.55;
-      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
-    }
-    draw() {
-      if (this.alpha < 0.01) return;
-      const diagLen  = Math.sqrt(W * W + H * H) * 1.6;
-      const numLinks = Math.ceil(diagLen / this.pitch) + 4;
-      const startPos = this.t - diagLen * 0.1;
-      for (let i = 0; i < numLinks; i++) {
-        const pos = startPos + i * this.pitch;
-        const { x: cx, y: cy } = this.chainXY(pos);
-        if (cx < -80 || cx > W + 80 || cy < -80 || cy > H + 80) continue;
-        const sh = this.shim(i);
-        switch (this.style) {
-          case 'cable':
-            if (i % 2 === 0) {
-              this.drawOvalLink(cx, cy, this.lw, this.lh, sh);
-            } else {
-              ctx.save();
-              ctx.translate(cx, cy);
-              ctx.rotate(DIAG_ANGLE + Math.PI / 2);
-              this.drawOvalLink(0, 0, this.lw * 0.7, this.lh * 1.1, sh);
-              ctx.restore();
-            }
-            break;
-          case 'figaro':
-            if (i % 4 < 3) {
-              this.drawOvalLink(cx, cy, this.lw * 0.65, this.lh * 0.9, sh);
-            } else {
-              this.drawOvalLink(cx, cy, this.lw * 1.8, this.lh, sh);
-            }
-            break;
-          case 'satellite':
-            if (i % 4 === 0) {
-              this.drawBead(cx, cy, this.lh * 1.15, sh);
-            } else {
-              const { x: nx, y: ny } = this.chainXY(pos + this.pitch * 0.5);
-              const { x: px2, y: py2 } = this.chainXY(pos - this.pitch * 0.5);
-              this.drawWire(px2, py2, nx, ny, sh);
-            }
-            break;
-          case 'oval':
-          default:
-            this.drawOvalLink(cx, cy, this.lw, this.lh * 0.85, sh);
-            break;
-        }
-      }
-    }
-    update() {
-      this.t        += this.speed;
-      this.shimPhase += this.shimSpeed;
-      if (this.alpha < this.maxA) this.alpha = Math.min(this.maxA, this.alpha + 0.004);
-      const diagLen = Math.sqrt(W * W + H * H);
-      const { x, y } = this.chainXY(this.t);
-      if (x > W + 200 && y > H + 200) {
-        this.t     = -(diagLen * 0.5 + Math.random() * 300);
-        this.alpha = 0;
-      }
-    }
-  }
-
-  class Sparkle {
-    constructor() { this.spawn(); }
-    spawn() {
-      this.x    = 40 + Math.random() * (W - 80);
-      this.y    = 40 + Math.random() * (H - 80);
-      this.r    = 1.2 + Math.random() * 2.0;
-      this.ph   = 0;
-      this.sp   = 0.028 + Math.random() * 0.022;
-      this.pk   = 0.55 + Math.random() * 0.45;
-      this.dead = false;
-    }
-    draw() {
-      const a = this.pk * Math.sin(this.ph);
-      if (a < 0.02) return;
-      const s = this.r;
-      ctx.strokeStyle = goldRGBA(GOLD_HI, a * 0.35);
-      ctx.lineWidth   = s * 2.4;
-      ctx.beginPath();
-      ctx.moveTo(this.x - s * 3, this.y); ctx.lineTo(this.x + s * 3, this.y);
-      ctx.moveTo(this.x, this.y - s * 3); ctx.lineTo(this.x, this.y + s * 3);
-      ctx.stroke();
-      ctx.strokeStyle = goldRGBA(GOLD_HI, a);
-      ctx.lineWidth   = 0.7;
-      ctx.beginPath();
-      ctx.moveTo(this.x - s * 2.8, this.y); ctx.lineTo(this.x + s * 2.8, this.y);
-      ctx.moveTo(this.x, this.y - s * 2.8); ctx.lineTo(this.x, this.y + s * 2.8);
-      ctx.stroke();
-      ctx.strokeStyle = goldRGBA(GOLD_HI, a * 0.5);
-      ctx.beginPath();
-      ctx.moveTo(this.x - s * 1.4, this.y - s * 1.4); ctx.lineTo(this.x + s * 1.4, this.y + s * 1.4);
-      ctx.moveTo(this.x + s * 1.4, this.y - s * 1.4); ctx.lineTo(this.x - s * 1.4, this.y + s * 1.4);
-      ctx.stroke();
-    }
-    update() {
-      this.ph += this.sp;
-      if (this.ph >= Math.PI) this.dead = true;
-    }
-  }
-
-  let chains = [], sparkles = [];
-
-  function buildChains() {
-    chains = [];
-    const spacing = 73 + Math.random() * 20;
-    const diagLen = Math.sqrt(W * W + H * H);
-    const n = Math.ceil(diagLen / spacing) + 4;
-    const halfSpan = (n * spacing) / 2;
-    for (let i = 0; i < n; i++) {
-      const perpOff = -halfSpan + i * spacing + (Math.random() - 0.5) * 10;
-      const c = new Chain(perpOff);
-      c.t     = Math.random() * diagLen * 1.2;
-      c.alpha = c.maxA * (0.3 + Math.random() * 0.7);
-      chains.push(c);
-    }
-  }
-
-  function startSparkles() {
-    if (sparkleTimer) return;
-    sparkleTimer = setInterval(() => { if (sparkles.length < 16) sparkles.push(new Sparkle()); }, 500);
-  }
-  function stopSparkles() {
-    clearInterval(sparkleTimer);
-    sparkleTimer = null;
-  }
-
-  function render() {
-    ctx.clearRect(0, 0, W, H);
-    chains.forEach(c => { c.update(); c.draw(); });
-    sparkles = sparkles.filter(s => !s.dead);
-    sparkles.forEach(s => { s.update(); s.draw(); });
-    rafId = requestAnimationFrame(render);
-  }
-
-  function startRender() { if (!rafId) { rafId = requestAnimationFrame(render); } startSparkles(); }
-  function stopRender()  { cancelAnimationFrame(rafId); rafId = null; stopSparkles(); }
-
-  document.addEventListener('visibilitychange', () => {
-    document.hidden ? stopRender() : startRender();
-  });
-
-  const observer = new IntersectionObserver(entries => {
-    entries[0].isIntersecting ? startRender() : stopRender();
-  }, { threshold: 0 });
-  observer.observe(canvas);
-
-  buildChains();
-  setTimeout(startRender, 100); // defer 100ms so CSS animation first-frame paint completes first
-})();
-  </script>
 
 </body>
 </html>

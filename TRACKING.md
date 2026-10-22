@@ -163,3 +163,32 @@ Remember to **cancel test appointments** in Acuity and consider excluding intern
 - Add the calendar-ID → location mapping in the webhook client template.
 - Re-run the publish (auto cache-busts). The intake-form fields are shared across all
   appointment types (the "Internal Tracker" form is set to all types), so no new fields needed.
+
+---
+
+## Gift card events (added 2026-10-22)
+
+eGift cards are sold on Square's hosted page (`app.squareup.com/gift/MLVGSRNW8ZXRJ/order`),
+which has no analytics and no return URL — so the site tracks **clicks to Square** as the
+purchase proxy. Pushed by `initGiftCards()` in `staging/assets/js/main.js`:
+
+| Event | Fires on | Parameters |
+|---|---|---|
+| `gift_card_purchase_click` | any link to `squareup.com/gift` | `cta_location`, `location`, `link_url`, `link_text`, `gift_season`, `page_path` |
+| `gift_card_cta_click` | any link to `gift-cards.html` | same |
+| `gift_band_view` | gift band ≥50% visible (once per page) | `gift_season`, `page_path` |
+
+`cta_location` values: `gift_band`, `hero_gift_button` (large hero button on index + location pages), `hero_gift_line`, `booking_gift_note`, `gift_occasions`,
+`gift_purchase_card`, `header`, `footer`, `cta_strip`, `hero`. `location` reads
+`<body data-location>` (not set on any page yet → `all`). `gift_season` is `holiday`,
+`last_minute`, `valentines`, `mothers_day` or `evergreen` (windows in `GIFT_SEASONS`).
+
+**GTM setup still needed (web container):** one Custom Event trigger per event name → GA4 Event
+tag forwarding the parameters above; register `cta_location`, `location`, `gift_season` as
+event-scoped custom dimensions in GA4; mark `gift_card_purchase_click` as a **key event**; in
+Google Ads import it as a **Secondary** conversion only (it's a click, not a sale).
+
+**Real purchases (optional, later):** a Square webhook (`gift_card.activity.created`, type
+`ACTIVATE`) → sGTM custom client → GA4 `purchase` event with `transaction_id` = activity ID and
+`value` = amount. It arrives without a web session (`(not set)` source), so it measures revenue,
+not attribution — the click events above remain the attribution proxy.

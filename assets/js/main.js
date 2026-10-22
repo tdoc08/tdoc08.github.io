@@ -17,6 +17,12 @@ window.dataLayer = window.dataLayer || [];
    and call_now_click events so we can see WHICH CTA placement was used. */
 function getCtaLocation(el) {
   if (!el) return 'unknown';
+  if (el.closest('.gift-band')) return 'gift_band';
+  if (el.closest('.btn-gift-hero')) return 'hero_gift_button';
+  if (el.closest('.hero-gift-line')) return 'hero_gift_line';
+  if (el.closest('.booking-gift-note')) return 'booking_gift_note';
+  if (el.closest('.gift-occasions')) return 'gift_occasions';
+  if (el.closest('.gift-purchase-card')) return 'gift_purchase_card';
   if (el.closest('.nav-cta-wrap, .nav-cta-dropdown-trigger, .nav-cta-dropdown')) return 'nav_dropdown';
   if (el.closest('.sticky-book-bar')) return 'sticky_bar';
   if (el.closest('.floating-book-btn')) return 'floating_btn';
@@ -293,7 +299,7 @@ function initGallery() {
     currentItems = getVisibleItems();
     currentIndex = currentItems.indexOf(item);
     const img = item.querySelector('img');
-    if (img) { lbImg.src = img.src; lbImg.alt = img.alt; }
+    if (img) { lbImg.src = img.dataset.full || img.src; lbImg.alt = img.alt; }
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
     lbClose?.focus();
@@ -316,7 +322,7 @@ function initGallery() {
   function showAdjacentItem(dir) {
     currentIndex = (currentIndex + dir + currentItems.length) % currentItems.length;
     const img = currentItems[currentIndex]?.querySelector('img');
-    if (img) { lbImg.src = img.src; lbImg.alt = img.alt; }
+    if (img) { lbImg.src = img.dataset.full || img.src; lbImg.alt = img.alt; }
   }
 
   items.forEach(item => {
@@ -376,10 +382,12 @@ function initReveal() {
    7. Active Nav Link Highlight (CSS class-based)
    ============================================================ */
 function initActiveNav() {
-  const path = window.location.pathname.split('/').pop() || 'index.html';
+  /* Compare full resolved paths — blog/index.html and index.html share a filename */
+  const here = window.location.pathname.replace(/\/$/, '/index.html');
   qsa('.nav-links a').forEach(a => {
     const href = a.getAttribute('href');
-    if (href && href.split('/').pop() === path) {
+    if (!href || href.startsWith('#') || /^[a-z]+:/i.test(href)) return;
+    if (new URL(href, window.location.href).pathname === here) {
       a.classList.add('is-active');
     }
   });
@@ -775,7 +783,7 @@ function initAcuityWidget() {
   };
   const readCookie = (re) => { const m = document.cookie.match(re); return m ? m[1] : ''; };
   // Matches both GA4 session-cookie formats: GS1 ("GS1.1.<id>.") and GS2 ("GS2.1.s<id>$...").
-  const sessionRe = /(?:^|;\s*)_ga_[A-Z0-9]+=GS\d\.\d\.s?(\d+)/;
+  const sessionRe = /(?:^|;\s*)_ga_R6QP26PTW9=GS\d\.\d\.s?(\d+)/;   // this GA4 property only
 
   /* 1. Fire `acuity_widget_view` when widget enters viewport */
   if ('IntersectionObserver' in window) {
@@ -827,7 +835,11 @@ function initAcuityWidget() {
         after this runs — so we wait briefly for it (max ~2s) before building. */
   const iframe = wrapper.querySelector('iframe[data-acuity-src], iframe[src]');
   if (iframe) {
-    iframe.addEventListener('load', () => { iframe.dataset.loaded = 'true'; });
+    iframe.addEventListener('load', () => {
+      iframe.dataset.loaded = 'true';
+      const fb = wrapper.querySelector('.acuity-widget-fallback--timeout');
+      if (fb) fb.remove();                     /* loaded after all — drop the warning */
+    });
     const base = iframe.getAttribute('data-acuity-src') || iframe.getAttribute('src');
 
     function buildAcuitySrc(gaSessionId) {
@@ -841,6 +853,17 @@ function initAcuityWidget() {
       iframe.src = fields.length
         ? base + (base.indexOf('?') > -1 ? '&' : '?') + fields.join('&')
         : base;
+
+      /* Acuity's embed.js only wires up auto-resize for iframes that already have a src,
+         so it is loaded here (not as a static <script>) — otherwise the frame stays 800px
+         and the calendar scrolls inside it. */
+      if (!document.querySelector('script[src*="embed.acuityscheduling.com/js/embed.js"]')) {
+        const embed = document.createElement('script');
+        embed.src = 'https://embed.acuityscheduling.com/js/embed.js';
+        embed.async = true;
+        document.body.appendChild(embed);
+      }
+      startFailTimer();
     }
 
     if (base) {
@@ -861,18 +884,38 @@ function initAcuityWidget() {
       })();
     }
 
-    setTimeout(() => {
-      if (iframe.dataset.loaded !== 'true') {
+    /* Load-failure guard: counts only once the src is set AND the widget is near the
+       screen (lazy iframes don't load before that), and allows 20s — Acuity's own
+       scheduler can take ~10s on a cold cache. */
+    const PHONES = {
+      gulf_shores:     ['+12514952134', '(251) 495-2134'],
+      west_palm_beach: ['+15615680842', '(561) 568-0842'],
+      myrtle_beach:    ['+18548943736', '(854) 894-3736']
+    };
+    let srcReady = false, nearScreen = !('IntersectionObserver' in window), timerStarted = false;
+    function startFailTimer(fromObserver) {
+      if (fromObserver) nearScreen = true; else srcReady = true;
+      if (!srcReady || !nearScreen || timerStarted) return;
+      timerStarted = true;
+      setTimeout(() => {
+        if (iframe.dataset.loaded === 'true') return;
         const fb = document.createElement('div');
-        fb.className = 'acuity-widget-fallback';
+        fb.className = 'acuity-widget-fallback acuity-widget-fallback--timeout';
         const fallbackUrl = wrapper.dataset.fallbackUrl || '#';
+        const phone = PHONES[location];
         fb.innerHTML = '<p>Booking widget is taking longer than expected. ' +
-          'Call <a href="#" data-call-cta>us</a> or ' +
+          (phone ? 'Call <a href="tel:' + phone[0] + '">' + phone[1] + '</a> or ' : '') +
           '<a href="' + fallbackUrl + '" target="_blank" rel="noopener">book directly</a>.</p>';
         wrapper.appendChild(fb);
         dl.push({ event: 'acuity_widget_load_failed', acuity_location: location });
-      }
-    }, 10000);
+      }, 20000);
+    }
+    if ('IntersectionObserver' in window) {
+      const nearObserver = new IntersectionObserver(entries => {
+        if (entries.some(e => e.isIntersecting)) { nearObserver.disconnect(); startFailTimer(true); }
+      }, { rootMargin: '300px 0px' });
+      nearObserver.observe(wrapper);
+    }
   }
 }
 
@@ -1054,6 +1097,7 @@ function initBookChooser() {
       const href = link.getAttribute('href') || '';
       const selectedLocation = href.includes('gulf-shores') ? 'gulf_shores'
         : href.includes('west-palm-beach') ? 'west_palm_beach'
+        : href.includes('myrtle-beach') ? 'myrtle_beach'
         : 'unknown';
 
       /* ANALYTICS: which location did they pick? */
@@ -1212,6 +1256,20 @@ function initCallChooser() {
 /* ============================================================
    20. Call Now Tracking — every tel: link site-wide
    ============================================================ */
+function initBookCtaTracking() {
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href="#book"], a[href^="book"], a[href^="../book"]');
+    if (!a || a.matches('[data-book-cta]') || a.closest('.book-chooser')) return;  /* those report themselves */
+    window.dataLayer.push({
+      event: 'book_cta_click',
+      cta_location: getCtaLocation(a),
+      cta_destination: a.getAttribute('href'),
+      location: document.body.dataset.location || 'all',
+      page_path: window.location.pathname
+    });
+  }, true);
+}
+
 function initCallNowTracking() {
   const telLinks = qsa('a[href^="tel:"]');
   if (!telLinks.length) return;
@@ -1219,7 +1277,10 @@ function initCallNowTracking() {
   telLinks.forEach(link => {
     /* Use pointerdown so the event reliably fires on iOS even when the
        phone dialer takes over before the click event propagates. */
+    let last = 0;   /* pointerdown and click both fire on a normal tap — count once */
     const handler = () => {
+      if (Date.now() - last < 1500) return;
+      last = Date.now();
       window.dataLayer.push({
         event: 'call_now_click',
         cta_location: getCtaLocation(link),
@@ -1319,8 +1380,142 @@ function initEngagementTracking() {
   if (!document.hidden) startTimer();
 }
 
+/* ============================================================
+   22. Gift Cards — seasonal copy + click/impression tracking
+   ============================================================ */
+
+/* Seasonal copy for [data-gift-eyebrow] and [data-gift-hero]. Dates are
+   inclusive [month, day]; the first matching window wins. Outside every
+   window the evergreen copy already in the HTML is left as-is. */
+const GIFT_SEASONS = [
+  { name: 'last_minute', start: [12, 18], end: [12, 24], eyebrow: 'Last-Minute Gifting', hero: 'Need a last-minute gift?' },
+  { name: 'holiday',     start: [11, 1],  end: [12, 17], eyebrow: 'Holiday Gifting',     hero: 'Holiday shopping?' },
+  { name: 'valentines',  start: [1, 20],  end: [2, 14],  eyebrow: 'Valentine’s Day', hero: 'Shopping for Valentine’s Day?' },
+  { name: 'mothers_day', start: [4, 15],  end: 'mothers_day', eyebrow: 'Mother’s Day', hero: 'Shopping for Mother’s Day?' }
+];
+
+/* Mother's Day (US) = second Sunday of May */
+function mothersDay(year) {
+  const may1 = new Date(year, 4, 1);
+  return new Date(year, 4, 1 + ((7 - may1.getDay()) % 7) + 7);
+}
+
+function currentGiftSeason(now) {
+  const y = now.getFullYear();
+  const today = new Date(y, now.getMonth(), now.getDate());
+  return GIFT_SEASONS.find(s => {
+    const start = new Date(y, s.start[0] - 1, s.start[1]);
+    const end = s.end === 'mothers_day' ? mothersDay(y) : new Date(y, s.end[0] - 1, s.end[1]);
+    return today >= start && today <= end;
+  }) || null;
+}
+
+function initGiftCards() {
+  const season = currentGiftSeason(new Date());
+  if (season) {
+    qsa('[data-gift-eyebrow]').forEach(el => { el.textContent = season.eyebrow; });
+    qsa('[data-gift-hero]').forEach(el => { el.textContent = season.hero; });
+  }
+
+  /* ANALYTICS: gift_card_purchase_click = link to Square checkout (mark as a
+     GA4 key event); gift_card_cta_click = link to gift-cards.html.
+     Delegated so it covers every placement. */
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a[href*="squareup.com/gift"], a[href$="gift-cards.html"]');
+    if (!link) return;
+    const purchase = link.href.includes('squareup.com');
+    window.dataLayer.push({
+      event: purchase ? 'gift_card_purchase_click' : 'gift_card_cta_click',
+      cta_location: getCtaLocation(link),
+      location: document.body.dataset.location || 'all',
+      link_url: link.href,
+      link_text: link.textContent.trim().replace(/\s+/g, ' ').slice(0, 100),
+      gift_season: season ? season.name : 'evergreen',
+      page_path: window.location.pathname
+    });
+  }, true);
+
+  /* ANALYTICS: one-shot impression when the gift band is half visible */
+  const band = qs('.gift-band');
+  if (band && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) {
+        observer.disconnect();
+        window.dataLayer.push({
+          event: 'gift_band_view',
+          gift_season: season ? season.name : 'evergreen',
+          page_path: window.location.pathname
+        });
+      }
+    }, { threshold: 0.5 });
+    observer.observe(band);
+  }
+}
+
+/* ============================================================
+   23. Video Hero — load the background video without hurting LCP
+   ============================================================ */
+function initHeroVideo() {
+  const video = qs('.hero-video');
+  if (!video) return;
+  const hero = video.closest('.hero');
+
+  /* Poster only: reduced motion, Save-Data, or a 2G-class connection */
+  const conn = navigator.connection || {};
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      conn.saveData || /2g$/.test(conn.effectiveType || '')) return;
+
+  /* Same breakpoint as the poster <source media> in the HTML */
+  const portrait = window.matchMedia('(orientation: portrait) and (max-width: 900px)').matches;
+  const rendition = portrait ? 'mobile' : 'desktop';
+  [['webm', 'video/webm'], ['mp4', 'video/mp4']].forEach(([ext, type]) => {
+    const source = document.createElement('source');
+    source.src = `${video.dataset.video}-${rendition}.${ext}`;
+    source.type = type;
+    video.appendChild(source);
+  });
+
+  /* Videos with an opening shot (data-loop-start-*) play it once, then loop only the
+     collage: the file ends on the frame the loop section starts with, so the jump is seamless. */
+  const loopStart = parseFloat(video.dataset[portrait ? 'loopStartMobile' : 'loopStartDesktop']);
+  if (loopStart > 0) {
+    video.loop = false;
+    video.addEventListener('ended', () => { video.currentTime = loopStart; play(); });
+  }
+
+  const play = () => {
+    const p = video.play();
+    if (p && p.catch) p.catch(() => {}); /* autoplay blocked (e.g. iOS Low Power Mode) — poster stays */
+  };
+
+  video.addEventListener('playing', () => hero.classList.add('is-video-playing'), { once: true });
+
+  /* Start after the page has loaded so the video never competes with the poster, CSS or fonts.
+     The visibility observer is attached only then — its first callback would otherwise
+     start the download early. */
+  const start = () => {
+    video.load();
+    play();
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) play(); else video.pause();   /* pause while off screen */
+      }).observe(hero);
+    }
+  };
+  /* Fallback: the load event can be held up for a long time by the Acuity iframe on
+     location pages, so start anyway 2.5s after DOMContentLoaded (LCP is ~1s). */
+  let started = false;
+  const startOnce = () => { if (!started) { started = true; start(); } };
+  if (document.readyState === 'complete') startOnce();
+  else {
+    window.addEventListener('load', startOnce, { once: true });
+    setTimeout(startOnce, 2500);
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initAdClickCapture();
+  initHeroVideo();
   initNav();
   initReviews();
   initFAQ();
@@ -1350,8 +1545,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initCallChooser();
   /* Analytics: Call Now tel: link tracking */
   initCallNowTracking();
+  initBookCtaTracking();
   /* Analytics: scroll depth + engaged time */
   initEngagementTracking();
+  /* Gift cards: seasonal copy + tracking */
+  initGiftCards();
   /* Footer year */
   const yearEl = document.getElementById('footer-year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();

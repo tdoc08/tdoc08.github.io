@@ -20,7 +20,7 @@ css_v=$(sha256sum staging/assets/css/style.css | cut -c1-8)
 js_v=$(sha256sum staging/assets/js/main.js | cut -c1-8)
 
 # Staging-only files that must never be published
-skip_staging() { case "$1" in DEPLOY.md|deploy.sh|archive/*) return 0;; esac; return 1; }
+skip_staging() { case "$1" in DEPLOY.md|deploy.sh|archive/*|*.tmp.*|*.tmp) return 0;; esac; return 1; }
 # Root-only files that have no staging counterpart
 keep_root() { case "$1" in CNAME|CLAUDE.md|TRACKING.md|Evermore-StyleGuide.pdf|.*|evermore_photos/*|marketing/*|staging/*) return 0;; esac; return 1; }
 
