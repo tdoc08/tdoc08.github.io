@@ -130,6 +130,23 @@ single load and appends the fields before the request is made. Pages with the wi
    container version. Saving a template or switching a setting in the workspace does nothing
    until you Submit → Publish.
 
+7. **Acuity has a separate webhook URL per event type.** Acuity → Integrations → API → Webhooks
+   must have `https://sgtm.evermore-permanentjewelry.com/acuity-webhook` in **Appointment
+   scheduled** (→ `booking_confirmed`) and ideally **rescheduled** and **canceled**. From about
+   2026-08-06 to 2026-10-23 only the *canceled* URL was set, so `booking_confirmed` silently
+   stopped while `booking_canceled` kept working. Fixed 2026-10-23; verified with a test booking.
+
+8. **Where the logs are.** The Cloud Run service lives in the Google Cloud project
+   **`GTM-NL7XR22G`** (not `evermore-server`). Logs Explorer query:
+   ```
+   resource.type="cloud_run_revision"
+   resource.labels.service_name="server-side-tagging"
+   textPayload:"Acuity"
+   ```
+   A healthy booking logs `raw body … action=scheduled`, then `stitch fields - cid:<decimal>
+   sid:<id> gclid:<…>`, then `processed: booking_confirmed`. Logs are kept **30 days** by default,
+   so a break older than that can't be inspected after the fact.
+
 ---
 
 ## How to verify end-to-end
