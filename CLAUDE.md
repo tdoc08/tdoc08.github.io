@@ -245,24 +245,26 @@ Every page must include in `<head>`:
 ## Location Info
 - Each studio has its own phone number (below); (630) 596-7306 is no longer used on the site.
 - Gift cards: Square eGift (`https://app.squareup.com/gift/MLVGSRNW8ZXRJ/order`), redeemable at all three studios.
-- Oyster shucking is offered at all three studios; ear piercing at Foley/Gulf Shores only.
+- Oyster shucking and ear piercing (Studex) are offered at all three studios (ear piercing added at WPB + MB 2026-11-23). Permanent jewelry stays the primary service; piercing is secondary.
+- Acuity appointment types (on all three calendars): Permanent Jewelry `92570153`, Ear Piercing `92571860`, Pearl Reveal `92571927`, Private Party `92572050`. Booking widgets have a service switcher (`.acuity-switch`); `#book-piercing` deep-links to the piercing calendar.
+- Holiday 2026 sale (live 2026-11-23): BOGO 50% off permanent jewelry + 25% off ear piercings (Black Friday, no end date set) and 15% off gift cards through 2026-12-31. Promo bar on every page + `holiday-deals.html`; `data-promo-end` elements self-expire.
 
 **Foley, AL (Gulf Shores)**
 - Address: 2601 S McKenzie St Suite 190, Foley, AL 36535 (Tanger Outlets)
 - Phone: (251) 495-2134 (`tel:+12514952134`)
-- Services: Permanent Jewelry, Ear Piercings (only studio that pierces — Studex device), Oyster Shucking, Private Parties
+- Services: Permanent Jewelry, Ear Piercings (Studex device), Oyster Shucking, Private Parties
 - Acuity Calendar ID: `14011805`
 
 **West Palm Beach, FL**
 - Address: 1741 Palm Beach Lakes Blvd E221, West Palm Beach, FL 33401 (Tanger Outlets)
 - Phone: (561) 568-0842 (`tel:+15615680842`)
-- Services: Permanent Jewelry, Private Parties, Oyster Shucking
+- Services: Permanent Jewelry, Ear Piercings, Private Parties, Oyster Shucking
 - Acuity Calendar ID: `14012033`
 
 **Myrtle Beach, SC**
 - Address: 10835 Kings Rd Ste 215, Myrtle Beach, SC 29572 (Tanger Outlets)
 - Phone: (854) 894-3736 (`tel:+18548943736`)
-- Services: Permanent Jewelry, Private Parties, Oyster Shucking
+- Services: Permanent Jewelry, Ear Piercings, Private Parties, Oyster Shucking
 - Acuity Calendar ID: `14012097`
 - Storefront photos: placeholder uses `gulf_shores_storefront/IMG_5219.JPEG` until real MB photos are taken; folder `myrtle_beach_storefront/` to be added later
 

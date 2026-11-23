@@ -209,3 +209,17 @@ Google Ads import it as a **Secondary** conversion only (it's a click, not a sal
 `ACTIVATE`) → sGTM custom client → GA4 `purchase` event with `transaction_id` = activity ID and
 `value` = amount. It arrives without a web session (`(not set)` source), so it measures revenue,
 not attribution — the click events above remain the attribution proxy.
+
+---
+
+## Booking switcher + promo events (added 2026-11-23)
+
+| Event | Fires on | Parameters |
+|---|---|---|
+| `acuity_service_select` | a click on the service/studio switcher above a booking widget (`.acuity-switch-btn`) or an in-page `#book-piercing` link | `acuity_service` (`all`, `permanent-jewelry`, `ear-piercing`, `pearl-reveal`), `acuity_location` |
+| `promo_click` | the promo bar or a link inside a deal card on `holiday-deals.html` | `promo_name`, `cta_location` (`promo_bar` / `deal_card`), `link_url`, `page_path` |
+
+Switching service/studio rebuilds the iframe src through the same `buildAcuitySrc()`, so the
+client_id / session_id / gclid fields are kept (verified 2026-11-23). On `ear-piercings.html` the
+switcher changes the **calendar** (studio) and `acuity_location` follows it.
+`booking_confirmed` is unaffected: the webhook maps calendar ID → location as before.

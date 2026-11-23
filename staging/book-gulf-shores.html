@@ -109,6 +109,13 @@
 
 
   <!-- ==================== HEADER / NAV ==================== -->
+  <!-- ==================== PROMO BAR — Black Friday / holiday 2026 (style.css §53) ==================== -->
+  <a href="holiday-deals.html" class="promo-bar" data-promo="black_friday_2026">
+    <span class="promo-long"><strong>Black Friday Sale</strong> <span class="promo-sep" aria-hidden="true">&middot;</span> Buy One, Get One 50% Off Permanent Jewelry <span class="promo-sep" aria-hidden="true">&middot;</span> 25% Off Ear Piercings<span data-promo-end="2026-12-31"> <span class="promo-sep" aria-hidden="true">&middot;</span> Gift Cards 15% Off</span></span>
+    <span class="promo-short"><strong>Black Friday:</strong> BOGO 50% Off &amp; More</span>
+    <span class="promo-cta">See Deals</span>
+  </a>
+
   <header class="site-header" id="site-header">
     <nav class="site-nav" id="site-nav" aria-label="Main navigation">
       <div class="container">
@@ -163,6 +170,15 @@
           <h2 id="gs-booking-heading" class="heading-editorial">Pick a Service<br><em>&amp; Time.</em></h2>
           <p>Walk-ins welcome too. Calls answered 7 days a week.</p>
         </div>
+        <!-- Service switcher (style.css §54, initAcuityWidget in main.js). Appointment types:
+             92570153 Permanent Jewelry · 92571860 Ear Piercing · 92571927 Pearl Reveal. -->
+        <div class="acuity-switch" role="group" aria-label="Choose a service to book">
+          <span class="acuity-switch-label">What are you booking?</span>
+          <button type="button" class="acuity-switch-btn is-active" aria-pressed="true" data-service="all" data-acuity-src="https://evermorepermanentjewelry.acuityscheduling.com/schedule.php?calendarID=14011805" data-title="Book an appointment at Evermore Permanent Jewelry — Gulf Shores">All Services</button>
+          <button type="button" class="acuity-switch-btn" aria-pressed="false" data-service="permanent-jewelry" data-acuity-src="https://evermorepermanentjewelry.acuityscheduling.com/schedule.php?calendarID=14011805&amp;appointmentType=92570153" data-title="Book permanent jewelry at Evermore — Gulf Shores">Permanent Jewelry</button>
+          <button type="button" class="acuity-switch-btn" aria-pressed="false" data-service="ear-piercing" data-acuity-src="https://evermorepermanentjewelry.acuityscheduling.com/schedule.php?calendarID=14011805&amp;appointmentType=92571860" data-title="Book an ear piercing at Evermore — Gulf Shores">Ear Piercing</button>
+          <button type="button" class="acuity-switch-btn" aria-pressed="false" data-service="pearl-reveal" data-acuity-src="https://evermorepermanentjewelry.acuityscheduling.com/schedule.php?calendarID=14011805&amp;appointmentType=92571927" data-title="Book an oyster pearl reveal at Evermore — Gulf Shores">Pearl Reveal</button>
+        </div>
         <div class="acuity-widget-wrapper" id="book"
              data-location="gulf_shores"
              data-fallback-url="https://evermorepermanentjewelry.acuityscheduling.com/schedule.php?calendarID=14011805">
@@ -210,6 +226,7 @@
         </div>
         <div class="gift-band-text reveal reveal-delay-1">
           <span class="eyebrow" data-gift-eyebrow>The Perfect Gift</span>
+          <div class="gift-promo" data-promo-end="2026-12-31"><i class="fa-solid fa-tag" aria-hidden="true"></i> <span><strong>15% off</strong> all gift cards through Dec 31</span></div>
           <h2 id="gift-band-heading" class="gift-band-heading">Give the Gift<br><em>of Forever.</em></h2>
           <p>A piece they'll wear every single day. Evermore eGift cards arrive instantly by email, never expire, and can be used for any service.</p>
           <div class="gift-band-btns">

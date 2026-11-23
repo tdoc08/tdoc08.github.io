@@ -17,6 +17,8 @@ window.dataLayer = window.dataLayer || [];
    and call_now_click events so we can see WHICH CTA placement was used. */
 function getCtaLocation(el) {
   if (!el) return 'unknown';
+  if (el.closest('.promo-bar')) return 'promo_bar';
+  if (el.closest('.deal-card')) return 'deal_card';
   if (el.closest('.gift-band')) return 'gift_band';
   if (el.closest('.btn-gift-hero')) return 'hero_gift_button';
   if (el.closest('.hero-gift-line')) return 'hero_gift_line';
@@ -761,7 +763,7 @@ function initAcuityWidget() {
   const wrapper = qs('.acuity-widget-wrapper');
   if (!wrapper) return;
 
-  const location = wrapper.dataset.location || 'unknown';
+  let location = wrapper.dataset.location || 'unknown';
   const dl = window.dataLayer = window.dataLayer || [];
 
   /* 0. Session-stitch identifiers into the booking iframe (Option B).
@@ -840,9 +842,50 @@ function initAcuityWidget() {
       const fb = wrapper.querySelector('.acuity-widget-fallback--timeout');
       if (fb) fb.remove();                     /* loaded after all — drop the warning */
     });
-    const base = iframe.getAttribute('data-acuity-src') || iframe.getAttribute('src');
+    let base = iframe.getAttribute('data-acuity-src') || iframe.getAttribute('src');
+
+    /* 3a. Service / studio switcher (.acuity-switch above the widget).
+           Each button carries the full Acuity URL for its service (appointmentType) or
+           studio (calendarID). Switching rebuilds the src through buildAcuitySrc so the
+           GA client_id / session_id / gclid stitching is kept. Deep links:
+           "#book-piercing" (or ?service=ear-piercing) opens the widget pre-set to Ear
+           Piercing; in-page links to "#book-piercing" switch and scroll. */
+    const switchBtns = qsa('.acuity-switch-btn');
+    let srcBuilt = false;
+    function selectService(btn, userAction) {
+      if (!btn) return;
+      switchBtns.forEach(b => {
+        const on = b === btn;
+        b.classList.toggle('is-active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      base = btn.dataset.acuitySrc;
+      iframe.setAttribute('data-acuity-src', base);
+      if (btn.dataset.location) { location = btn.dataset.location; wrapper.dataset.location = location; }
+      wrapper.dataset.fallbackUrl = base;
+      if (btn.dataset.title) iframe.title = btn.dataset.title;
+      if (userAction) dl.push({ event: 'acuity_service_select', acuity_service: btn.dataset.service || 'all', acuity_location: location });
+      if (srcBuilt) { iframe.dataset.loaded = 'false'; buildAcuitySrc(readCookie(sessionRe)); }
+    }
+    switchBtns.forEach(b => b.addEventListener('click', () => selectService(b, true)));
+    const scrollTarget = qs(".acuity-switch") || wrapper;
+    const piercingBtn = switchBtns.find(b => b.dataset.service === 'ear-piercing');
+    const wantsPiercing = window.location.hash === '#book-piercing' ||
+      new URLSearchParams(window.location.search).get('service') === 'ear-piercing';
+    if (piercingBtn && wantsPiercing && !piercingBtn.classList.contains('is-active')) selectService(piercingBtn, false);
+    if (window.location.hash === '#book-piercing') {
+      setTimeout(() => scrollTarget.scrollIntoView({ behavior: "smooth", block: "start" }), 300);
+    }
+    document.addEventListener('click', e => {
+      const a = e.target.closest('a[href="#book-piercing"]');
+      if (!a) return;
+      e.preventDefault();
+      if (piercingBtn) selectService(piercingBtn, true);
+      scrollTarget.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
 
     function buildAcuitySrc(gaSessionId) {
+      srcBuilt = true;
       const gaClientId  = readCookie(/(?:^|;\s*)_ga=GA\d\.\d\.(\d+\.\d+)/);
       const adGclid     = new URLSearchParams(window.location.search).get('gclid')
                           || readCookie(/(?:^|;\s*)_ev_gclid=([^;]+)/);
@@ -1258,7 +1301,7 @@ function initCallChooser() {
    ============================================================ */
 function initBookCtaTracking() {
   document.addEventListener('click', e => {
-    const a = e.target.closest('a[href="#book"], a[href^="book"], a[href^="../book"]');
+    const a = e.target.closest('a[href="#book"], a[href="#book-piercing"], a[href^="book"], a[href^="../book"]');
     if (!a || a.matches('[data-book-cta]') || a.closest('.book-chooser')) return;  /* those report themselves */
     window.dataLayer.push({
       event: 'book_cta_click',
@@ -1453,6 +1496,36 @@ function initGiftCards() {
 }
 
 /* ============================================================
+   Holiday promos — retire expired offers + track promo clicks
+   Any element with data-promo-end="YYYY-MM-DD" is removed after the end of
+   that day (visitor's local time), so a lapsed offer never shows. If the
+   promo bar ends up empty it is removed too.
+   ============================================================ */
+function initPromos() {
+  const now = new Date();
+  qsa('[data-promo-end]').forEach(el => {
+    const [y, m, d] = el.dataset.promoEnd.split('-').map(Number);
+    if (now > new Date(y, m - 1, d, 23, 59, 59)) el.remove();
+  });
+  const bar = qs('.promo-bar');
+  if (bar && !bar.textContent.trim()) bar.remove();
+
+  /* ANALYTICS: promo_click = promo bar or deal card link */
+  document.addEventListener('click', e => {
+    const link = e.target.closest('.promo-bar, .deal-card a');
+    if (!link) return;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'promo_click',
+      promo_name: link.closest('[data-promo]')?.dataset.promo || 'holiday_2026',
+      cta_location: getCtaLocation(link),
+      link_url: link.href,
+      page_path: window.location.pathname
+    });
+  }, true);
+}
+
+/* ============================================================
    23. Video Hero — load the background video without hurting LCP
    ============================================================ */
 function initHeroVideo() {
@@ -1550,6 +1623,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initEngagementTracking();
   /* Gift cards: seasonal copy + tracking */
   initGiftCards();
+  /* Holiday promos: expire dated offers + promo_click */
+  initPromos();
   /* Footer year */
   const yearEl = document.getElementById('footer-year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();

@@ -41,7 +41,7 @@
   <link rel="dns-prefetch" href="https://www.google.com">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="assets/css/style.css?v=e01d6b68">
+  <link rel="stylesheet" href="assets/css/style.css?v=6bf6160d">
 
   <!-- JSON-LD: JewelryStore -->
   <script type="application/ld+json">
@@ -77,7 +77,9 @@
       "@type": "OfferCatalog",
       "name": "Services",
       "itemListElement": [
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Permanent Jewelry" } }
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Permanent Jewelry" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Boutique Ear Piercings" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Oyster Shucking" } }
       ]
     },
     "areaServed": ["West Palm Beach", "Palm Beach", "Palm Beach Gardens", "Boynton Beach", "Delray Beach", "Boca Raton", "Jupiter", "Lake Worth"]
@@ -114,6 +116,13 @@
 
 
   <!-- ==================== HEADER / NAV ==================== -->
+  <!-- ==================== PROMO BAR — Black Friday / holiday 2026 (style.css §53) ==================== -->
+  <a href="holiday-deals.html" class="promo-bar" data-promo="black_friday_2026">
+    <span class="promo-long"><strong>Black Friday Sale</strong> <span class="promo-sep" aria-hidden="true">&middot;</span> Buy One, Get One 50% Off Permanent Jewelry <span class="promo-sep" aria-hidden="true">&middot;</span> 25% Off Ear Piercings<span data-promo-end="2026-12-31"> <span class="promo-sep" aria-hidden="true">&middot;</span> Gift Cards 15% Off</span></span>
+    <span class="promo-short"><strong>Black Friday:</strong> BOGO 50% Off &amp; More</span>
+    <span class="promo-cta">See Deals</span>
+  </a>
+
   <header class="site-header" id="site-header">
     <nav class="site-nav" id="site-nav" aria-label="Main navigation">
       <div class="container">
@@ -163,9 +172,10 @@
             <p>In-store appointments &amp; private parties — walk-ins always welcome. Now at Tanger Outlets in West Palm Beach, FL, serving Palm Beach County and beyond.</p>
             <div class="hero-btns">
               <a href="#book" class="btn btn-primary">Book Now</a>
-              <a href="https://app.squareup.com/gift/MLVGSRNW8ZXRJ/order" class="btn btn-gift-hero" target="_blank" rel="noopener" aria-label="Give a gift card (opens Square checkout in a new tab)"><i class="fa-solid fa-gift" aria-hidden="true"></i> Give a Gift Card</a>
+              <a href="https://app.squareup.com/gift/MLVGSRNW8ZXRJ/order" class="btn btn-gift-hero" target="_blank" rel="noopener" aria-label="Give a gift card (opens Square checkout in a new tab)"><i class="fa-solid fa-gift" aria-hidden="true"></i> Give a Gift Card <span class="btn-promo-tag" data-promo-end="2026-12-31">15% Off</span></a>
               <a href="tel:+15615680842" class="btn btn-outline"><i class="fa-solid fa-phone" aria-hidden="true"></i> Call Now</a>
             </div>
+            <p class="hero-also-line"><i class="fa-solid fa-star" aria-hidden="true"></i>Ear piercing now available. <a href="#book-piercing">Book a piercing</a></p>
           </div>
         </div>
 
@@ -201,6 +211,7 @@
         </div>
         <div class="gift-band-text reveal reveal-delay-1">
           <span class="eyebrow" data-gift-eyebrow>The Perfect Gift</span>
+          <div class="gift-promo" data-promo-end="2026-12-31"><i class="fa-solid fa-tag" aria-hidden="true"></i> <span><strong>15% off</strong> all gift cards through Dec 31</span></div>
           <h2 id="gift-band-heading" class="gift-band-heading">Give the Gift<br><em>of Forever.</em></h2>
           <p>A piece they'll wear every single day. Evermore eGift cards arrive instantly by email, never expire, and can be used for any service.</p>
           <div class="gift-band-btns">
@@ -679,6 +690,15 @@
           <h2 id="wpb-booking-heading" class="heading-editorial">Book Your<br><em>Appointment.</em></h2>
           <p>Select a service and pick a time. Walk-ins also welcome at Tanger Outlets, West Palm Beach.</p>
         </div>
+        <!-- Service switcher (style.css §54, initAcuityWidget in main.js). Appointment types:
+             92570153 Permanent Jewelry · 92571860 Ear Piercing · 92571927 Pearl Reveal. -->
+        <div class="acuity-switch" role="group" aria-label="Choose a service to book">
+          <span class="acuity-switch-label">What are you booking?</span>
+          <button type="button" class="acuity-switch-btn is-active" aria-pressed="true" data-service="all" data-acuity-src="https://evermorepermanentjewelry.acuityscheduling.com/schedule.php?calendarID=14012033" data-title="Book an appointment at Evermore Permanent Jewelry — West Palm Beach">All Services</button>
+          <button type="button" class="acuity-switch-btn" aria-pressed="false" data-service="permanent-jewelry" data-acuity-src="https://evermorepermanentjewelry.acuityscheduling.com/schedule.php?calendarID=14012033&amp;appointmentType=92570153" data-title="Book permanent jewelry at Evermore — West Palm Beach">Permanent Jewelry</button>
+          <button type="button" class="acuity-switch-btn" aria-pressed="false" data-service="ear-piercing" data-acuity-src="https://evermorepermanentjewelry.acuityscheduling.com/schedule.php?calendarID=14012033&amp;appointmentType=92571860" data-title="Book an ear piercing at Evermore — West Palm Beach">Ear Piercing</button>
+          <button type="button" class="acuity-switch-btn" aria-pressed="false" data-service="pearl-reveal" data-acuity-src="https://evermorepermanentjewelry.acuityscheduling.com/schedule.php?calendarID=14012033&amp;appointmentType=92571927" data-title="Book an oyster pearl reveal at Evermore — West Palm Beach">Pearl Reveal</button>
+        </div>
         <div class="acuity-widget-wrapper" id="book"
              data-location="west_palm_beach"
              data-fallback-url="https://evermorepermanentjewelry.acuityscheduling.com/schedule.php?calendarID=14012033">
@@ -806,7 +826,7 @@
     <span class="sticky-book-bar-label">Book Now — West Palm Beach</span>
   </a>
 
-  <script src="assets/js/main.js?v=d89943ee"></script>
+  <script src="assets/js/main.js?v=78c7a8ad"></script>
 
 
 </body>
