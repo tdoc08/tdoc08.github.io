@@ -1005,6 +1005,21 @@ function initBookDropdown() {
    Click any homepage Book Now button -> small popover appears
    with two location choices. On mobile: slides up as bottom sheet.
    ============================================================ */
+/* Floating choosers (book + call) close when the page really moves: a scroll of more than
+   60px from where they opened, or a width change. Phone browsers fire a small scroll and a
+   height-only resize when their toolbar shows/hides during a tap near the bottom of the
+   screen; closing on those made the chooser vanish instantly, so Book Now took 2 taps. */
+function closeChooserOnMove(isOpen, close) {
+  let y = 0, w = 0;
+  window.addEventListener('scroll', () => {
+    if (isOpen() && Math.abs((window.scrollY || 0) - y) > 60) close();
+  }, { passive: true });
+  window.addEventListener('resize', () => {
+    if (isOpen() && window.innerWidth !== w) close();
+  });
+  return () => { y = window.scrollY || 0; w = window.innerWidth; };   /* call on open */
+}
+
 function initBookChooser() {
   const triggers = qsa('[data-book-cta]');
   if (!triggers.length) return;
@@ -1028,6 +1043,7 @@ function initBookChooser() {
   }
 
   let activeTrigger = null;
+  let markOpenPosition = () => {};
 
   const close = () => {
     chooser.classList.remove('is-open');
@@ -1061,8 +1077,9 @@ function initBookChooser() {
     /* Desktop: position absolutely below (or above) the trigger button. */
     const rect = trigger.getBoundingClientRect();
     const scrollY = window.scrollY || window.pageYOffset;
-    const chooserH = 132;
     const chooserW = 260;
+    chooser.style.width = chooserW + 'px';
+    const chooserH = chooser.offsetHeight || 175;
 
     const spaceBelow = window.innerHeight - rect.bottom;
     const showAbove = spaceBelow < chooserH + 20;
@@ -1086,6 +1103,7 @@ function initBookChooser() {
     }
     activeTrigger = trigger;
     positionChooser(trigger);
+    markOpenPosition();
     chooser.classList.add('is-open');
     document.body.classList.add('book-chooser-open');
     trigger.setAttribute('aria-expanded', 'true');
@@ -1155,14 +1173,8 @@ function initBookChooser() {
     });
   });
 
-  /* Reposition / close on scroll or resize */
-  window.addEventListener('scroll', () => {
-    if (chooser.classList.contains('is-open')) close();
-  }, { passive: true });
-
-  window.addEventListener('resize', () => {
-    if (chooser.classList.contains('is-open')) close();
-  });
+  /* Close when the page really moves (see closeChooserOnMove) */
+  markOpenPosition = closeChooserOnMove(() => chooser.classList.contains('is-open'), close);
 }
 
 /* ============================================================
@@ -1200,6 +1212,7 @@ function initCallChooser() {
   }
 
   let activeTrigger = null;
+  let markOpenPosition = () => {};
 
   const close = () => {
     chooser.classList.remove('is-open');
@@ -1226,8 +1239,9 @@ function initCallChooser() {
     if (isMobile()) return;
     const rect = trigger.getBoundingClientRect();
     const scrollY = window.scrollY || window.pageYOffset;
-    const chooserH = 168;
     const chooserW = 300;
+    chooser.style.width = chooserW + 'px';
+    const chooserH = chooser.offsetHeight || 200;
     const spaceBelow = window.innerHeight - rect.bottom;
     const showAbove = spaceBelow < chooserH + 20;
     if (showAbove) {
@@ -1248,6 +1262,7 @@ function initCallChooser() {
     }
     activeTrigger = trigger;
     positionChooser(trigger);
+    markOpenPosition();
     chooser.classList.add('is-open');
     document.body.classList.add('book-chooser-open');
     trigger.setAttribute('aria-expanded', 'true');
@@ -1292,8 +1307,7 @@ function initCallChooser() {
     });
   });
 
-  window.addEventListener('scroll', () => { if (chooser.classList.contains('is-open')) close(); }, { passive: true });
-  window.addEventListener('resize', () => { if (chooser.classList.contains('is-open')) close(); });
+  markOpenPosition = closeChooserOnMove(() => chooser.classList.contains('is-open'), close);
 }
 
 /* ============================================================
