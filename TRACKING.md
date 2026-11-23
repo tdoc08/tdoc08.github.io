@@ -223,3 +223,20 @@ Switching service/studio rebuilds the iframe src through the same `buildAcuitySr
 client_id / session_id / gclid fields are kept (verified 2026-11-23). On `ear-piercings.html` the
 switcher changes the **calendar** (studio) and `acuity_location` follows it.
 `booking_confirmed` is unaffected: the webhook maps calendar ID → location as before.
+
+---
+
+## Square gift card purchases → Meta Conversions API (added 2026-11-23)
+
+Square's hosted eGift page can't run tags, so real sales come server-side:
+Square webhook `gift_card.activity.created` → `https://sgtm.evermore-permanentjewelry.com/square-webhook` →
+**Square Webhook Receiver** client (verifies via Square API, digital cards only, ACTIVATE/LOAD, buyer email
+from order → payment) → `purchase` event → **Meta Conversions API (Evermore)** tag → dataset
+298706309343858 as `Purchase` (`event_id` = `Purchase.<activity id>`). Template sources, build/test scripts and
+setup steps: `marketing/gtm/` (README). Logs: `textPayload:"Square webhook"`.
+
+Attribution caveat: there is no browser session behind these events, so Meta matches on the hashed buyer
+email only. The browser-side `InitiateCheckout` (click to Square) stays the click-level signal.
+
+Web-container Meta pixel events (Schedule, InitiateCheckout, Contact, FindLocation, ViewContent + custom) are in
+`marketing/gtm/meta-pixel-events-import.json`; see the README there.
