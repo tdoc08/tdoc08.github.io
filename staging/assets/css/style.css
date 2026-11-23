@@ -6193,7 +6193,7 @@ html { scroll-padding-top: calc(var(--nav-height) + 50px + var(--promo-h)); }
 }
 
 /* Location-page hero: secondary "Ear piercing? Book a piercing" line (same look as .hero-gift-line) */
-.hero-also-line { margin: var(--space-16) 0 0; font-family: var(--font-body); font-size: 0.95rem; color: rgba(250, 247, 242, 0.82); }
+.hero-also-line { margin: var(--space-24) 0 0; font-family: var(--font-body); font-size: 0.95rem; color: rgba(250, 247, 242, 0.82); }
 .hero-also-line i { color: var(--gold-light); margin-right: 0.4em; }
 .hero-also-line a { color: var(--cream); font-weight: 500; text-decoration: underline; text-decoration-color: rgba(226, 201, 126, 0.6); text-underline-offset: 4px; }
 .hero-also-line a:hover, .hero-also-line a:focus-visible { color: var(--gold-light); text-decoration-color: var(--gold-light); }
