@@ -194,7 +194,6 @@ All styles use CSS custom properties defined in `:root` in `style.css`.
 - Always include descriptive `alt` text on every image (e.g. `alt="Gold permanent bracelet being welded on customer's wrist"`)
 - Prefer smaller file sizes — if an image seems large, note it for optimization
 - Files with spaces in names must be URL-encoded or quoted carefully:
-  - `bracelet_multiple .jpg` (has trailing space)
   - `weld_image .jpg` (has trailing space)
   - `ear_piercing_gulf shores.jpg` (space in middle)
 - Photo library subfolders: `bracelets/`, `anklets/`, `necklaces/`, `hand_chains/`, `gulf_shores_ear_piercings/`, `west_palm_beach_ear_piercings/`, `gulf_shores_storefront/`, `west_palm_beach_storefront/`, `parties_events/`, `logos/`
