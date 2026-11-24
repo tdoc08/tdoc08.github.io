@@ -269,14 +269,19 @@ function initGallery() {
   const lbNext     = qs('.lightbox-next');
 
   // --- Filter ---
+  const applyFilter = filter => items.forEach(item => {
+    item.style.display = (filter === 'all' || item.dataset.category === filter) ? '' : 'none';
+  });
+  /* Start on the button marked active in the HTML (Bracelets on gallery.html) */
+  const startBtn = filterBtns.find(b => b.classList.contains('active'));
+  if (startBtn) applyFilter(startBtn.dataset.filter);
+
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       const filter = btn.dataset.filter;
-      items.forEach(item => {
-        item.style.display = (filter === 'all' || item.dataset.category === filter) ? '' : 'none';
-      });
+      applyFilter(filter);
 
       /* ANALYTICS: which gallery filters are people exploring? */
       window.dataLayer.push({
