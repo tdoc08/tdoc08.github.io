@@ -114,9 +114,15 @@ single load and appends the fields before the request is made. Pages with the wi
    (note the `s` prefix); older use `GS1.1.<session_id>.<n>`. The regex must handle both:
    `/_ga_[A-Z0-9]+=GS\d\.\d\.s?(\d+)/`.
 
-3. **The `_ga_<id>` session cookie can lag.** It's written when GA4 fires (sometimes just
-   after `main.js` runs), unlike the persistent `_ga` cookie. `initAcuityWidget()` waits up to
-   ~2s for the session cookie before building the iframe URL.
+3. **The calendar never waits on a visible widget (changed 2026-11-24).** It used to wait up to ~2s
+   for the `_ga_<id>` session cookie before loading, which left a blank widget on every booking page.
+   Now `initAcuityWidget()` loads it at once when the GA cookies are already set or the widget is on or
+   near the screen; a widget further down a landing page loads as soon as gtag writes the cookies.
+   A session cookie whose last hit (`$t` / 6th field) is over 30 min old is from an earlier visit and
+   is left out rather than stitching the booking onto the wrong session.
+   Widget URLs use Acuity's final form `/schedule/ba948338/?calendarIds=<cal>&appointmentTypeIds%5B%5D=<type>`
+   (skips the `schedule.php` 302, ~0.5s; `field:<id>=` prefills work the same). Booking and location
+   widgets default to Permanent Jewelry (`92570153`); other services come from the switcher.
 
 4. **The webhook does NOT appear in sGTM Preview.** Preview only captures requests carrying its
    debug header; Acuity's server-to-server POST has none. **Verify via Cloud Logging**, not Preview.

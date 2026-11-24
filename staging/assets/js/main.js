@@ -784,8 +784,17 @@ function initAcuityWidget() {
     gclid     : '18578991'    // Acuity field ID storing gclid           (confirmed via label)
   };
   const readCookie = (re) => { const m = document.cookie.match(re); return m ? m[1] : ''; };
-  // Matches both GA4 session-cookie formats: GS1 ("GS1.1.<id>.") and GS2 ("GS2.1.s<id>$...").
-  const sessionRe = /(?:^|;\s*)_ga_R6QP26PTW9=GS\d\.\d\.s?(\d+)/;   // this GA4 property only
+  const readClientId = () => readCookie(/(?:^|;\s*)_ga=GA\d\.\d\.(\d+\.\d+)/);
+  /* session_id from this GA4 property's cookie, in either format: GS1 ("GS1.1.<id>.<n>.<e>.<last hit>.")
+     or GS2 ("GS2.1.s<id>$...$t<last hit>$..."). A cookie whose last hit is over 30 min old belongs to an
+     earlier visit (gtag rolls it a moment after page load), so it's ignored rather than stitching the
+     booking onto the wrong session. */
+  const readSessionId = () => {
+    const v = readCookie(/(?:^|;\s*)_ga_R6QP26PTW9=([^;]+)/);
+    const sid = (v.match(/^GS\d\.\d\.s?(\d+)/) || [])[1];
+    const lastHit = Number((v.match(/\$t(\d+)/) || [])[1] || v.split('.')[5] || 0);
+    return sid && Date.now() / 1000 - lastHit < 1800 ? sid : '';
+  };
 
   /* 1. Fire `acuity_widget_view` when widget enters viewport */
   if ('IntersectionObserver' in window) {
@@ -831,10 +840,7 @@ function initAcuityWidget() {
 
   /* 3. Build the iframe src with the stitched fields, then guard against load failure.
         The iframe ships with `data-acuity-src` (no static src) so we control the
-        single load and append the fields before the request is made.
-        The _ga (client_id) cookie is persistent and present immediately, but the
-        _ga_<id> session cookie is written when GA4 fires — occasionally a moment
-        after this runs — so we wait briefly for it (max ~2s) before building. */
+        single load and append the fields before the request is made (timing: 3b). */
   const iframe = wrapper.querySelector('iframe[data-acuity-src], iframe[src]');
   if (iframe) {
     iframe.addEventListener('load', () => {
@@ -865,7 +871,7 @@ function initAcuityWidget() {
       wrapper.dataset.fallbackUrl = base;
       if (btn.dataset.title) iframe.title = btn.dataset.title;
       if (userAction) dl.push({ event: 'acuity_service_select', acuity_service: btn.dataset.service || 'all', acuity_location: location });
-      if (srcBuilt) { iframe.dataset.loaded = 'false'; buildAcuitySrc(readCookie(sessionRe)); }
+      if (srcBuilt) { iframe.dataset.loaded = 'false'; buildAcuitySrc(); }
     }
     switchBtns.forEach(b => b.addEventListener('click', () => selectService(b, true)));
     const scrollTarget = qs(".acuity-switch") || wrapper;
@@ -884,9 +890,10 @@ function initAcuityWidget() {
       scrollTarget.scrollIntoView({ behavior: "smooth", block: "start" });
     });
 
-    function buildAcuitySrc(gaSessionId) {
+    function buildAcuitySrc() {
       srcBuilt = true;
-      const gaClientId  = readCookie(/(?:^|;\s*)_ga=GA\d\.\d\.(\d+\.\d+)/);
+      const gaClientId  = readClientId();
+      const gaSessionId = readSessionId();
       const adGclid     = new URLSearchParams(window.location.search).get('gclid')
                           || readCookie(/(?:^|;\s*)_ev_gclid=([^;]+)/);
       const fields = [];
@@ -907,24 +914,6 @@ function initAcuityWidget() {
         document.body.appendChild(embed);
       }
       startFailTimer();
-    }
-
-    if (base) {
-      // The _ga_ session cookie can still hold the PREVIOUS session at page load —
-      // gtag rolls a returning visitor to a new session a beat later. Watch for that
-      // roll (the cookie value changing) for ~2s so we inject the CURRENT session_id,
-      // not a stale/older one. If it never changes (continuing session) we use what's there.
-      const initialSid = readCookie(sessionRe);
-      let waits = 0;
-      (function resolveSession() {
-        const sid = readCookie(sessionRe);
-        if ((sid && sid !== initialSid) || waits >= 10) {  // changed (rolled), or ~2s elapsed
-          buildAcuitySrc(sid);
-        } else {
-          waits++;
-          setTimeout(resolveSession, 200);
-        }
-      })();
     }
 
     /* Load-failure guard: counts only once the src is set AND the widget is near the
@@ -958,6 +947,29 @@ function initAcuityWidget() {
         if (entries.some(e => e.isIntersecting)) { nearObserver.disconnect(); startFailTimer(true); }
       }, { rootMargin: '300px 0px' });
       nearObserver.observe(wrapper);
+    }
+
+    /* 3b. Load the calendar without making anyone wait for it. It loads at once when the GA ids
+           are already in their cookies (any visitor who has seen another page) or when the widget
+           is on or near the screen (booking pages, #book links). A widget further down a landing
+           page waits only until gtag writes the cookies on a first visit (usually well under a
+           second, before the visitor scrolls there), so ad landers keep their attribution. */
+    if (base) {
+      const load = () => { if (!srcBuilt) buildAcuitySrc(); };
+      if (readClientId() && readSessionId() || !('IntersectionObserver' in window)) {
+        load();
+      } else {
+        const nearObserver = new IntersectionObserver(entries => {
+          if (entries.some(e => e.isIntersecting)) { nearObserver.disconnect(); load(); }
+        }, { rootMargin: '150% 0px' });
+        nearObserver.observe(wrapper);
+        let checks = 0;
+        (function waitForIds() {
+          if (srcBuilt) return;
+          if (readClientId() && readSessionId() || ++checks > 100) { nearObserver.disconnect(); load(); }
+          else setTimeout(waitForIds, 100);
+        })();
+      }
     }
   }
 }
