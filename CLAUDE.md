@@ -197,7 +197,7 @@ All styles use CSS custom properties defined in `:root` in `style.css`.
   - `bracelet_multiple .jpg` (has trailing space)
   - `weld_image .jpg` (has trailing space)
   - `ear_piercing_gulf shores.jpg` (space in middle)
-- Photo library subfolders: `bracelets/`, `anklets/`, `necklaces/`, `hand_chains/`, `gulf_shores_ear_piercings/`, `gulf_shores_storefront/`, `west_palm_beach_storefront/`, `parties_events/`, `logos/`
+- Photo library subfolders: `bracelets/`, `anklets/`, `necklaces/`, `hand_chains/`, `gulf_shores_ear_piercings/`, `west_palm_beach_ear_piercings/`, `gulf_shores_storefront/`, `west_palm_beach_storefront/`, `parties_events/`, `logos/`
 
 ## SEO & Meta Tag Rules
 Every page must include in `<head>`:
